@@ -1,0 +1,10 @@
+{"textDocument": {"uri": "file://completionOption.lean"},
+ "position": {"line": 0, "character": 20}}
+{"items":
+ [{"label": "pp.proofs",
+   "detail":
+   "(false), (pretty printer) if set to false, replace proofs appearing as an argument to a function with a placeholder"},
+  {"label": "pp.proofs.withType",
+   "detail":
+   "(true), (pretty printer) when eliding a proof (see `pp.proofs`), show its type instead"}],
+ "isIncomplete": true}

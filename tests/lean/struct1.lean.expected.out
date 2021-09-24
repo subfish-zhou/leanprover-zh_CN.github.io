@@ -1,0 +1,31 @@
+struct1.lean:9:14-9:17: error: expected Type
+struct1.lean:12:20-12:29: error: expected structure
+struct1.lean:15:28-15:34: warning: field 'x' from 'A' has already been declared
+struct1.lean:15:28-15:34: error: parent field type mismatch, field 'x' from parent 'A' has type
+  Bool : Type
+but is expected to have type
+  Nat : Type
+struct1.lean:18:27-18:33: error: parent field type mismatch, field 'x' from parent 'B' has type
+  Bool : Type
+but is expected to have type
+  Nat : Type
+struct1.lean:29:1-29:2: error: field 'x' has already been declared
+struct1.lean:32:1-32:2: error: field 'x' has been declared in parent structure
+struct1.lean:35:6-35:10: error: type mismatch
+  true
+has type
+  Bool : Type
+but is expected to have type
+  Nat : Type
+struct1.lean:38:5-38:9: error: omit field 'x' type to set default value
+struct1.lean:41:12-41:16: error: type mismatch
+  true
+has type
+  Bool : Type
+but is expected to have type
+  Nat : Type
+struct1.lean:44:0-44:13: error: invalid 'private' constructor in a 'private' structure
+struct1.lean:47:0-47:15: error: invalid 'protected' constructor in a 'private' structure
+struct1.lean:50:0-50:19: error: invalid 'protected' field in a 'private' structure
+S : Type
+S.mk2 : Nat → S

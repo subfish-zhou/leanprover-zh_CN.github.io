@@ -1,0 +1,102 @@
+# Copyright (c) 2018 Simon Hudon. All rights reserved.
+# Released under Apache 2.0 license as described in the file LICENSE.
+# Authors: Simon Hudon, Sebastian Ullrich, Leonardo de Moura
+
+# We compile all source files in $PKG/ as well as $PKG.lean. $PKG is also used for naming binary files.
+ifndef PKG
+  PKG = $(strip $(subst .lean,, $(wildcard *.lean)))
+  ifneq ($(words $(PKG)), 1)
+    $(error no unique .lean file found in current directory, please specify PKG)
+  endif
+endif
+
+LEAN = lean
+LEANC = leanc
+LEAN_AR = ar
+OUT = build
+OLEAN_OUT = $(OUT)
+TEMP_OUT = $(OUT)/temp
+C_OUT = $(TEMP_OUT)
+BIN_OUT = $(OUT)/bin
+LIB_OUT = $(OUT)/lib
+BIN_NAME = $(PKG)
+STATIC_LIB_NAME = lib$(PKG).a
+LEAN_OPTS = @LEAN_EXTRA_MAKE_OPTS@
+LEANC_OPTS = -O3 -DNDEBUG
+LINK_OPTS =
+
+SRCS = $(shell find $(PKG) -name '*.lean' 2> /dev/null || true; find $(PKG).lean 2> /dev/null)
+DEPS = $(addprefix $(TEMP_OUT)/,$(SRCS:.lean=.depend))
+export LEAN_PATH += @LEAN_PATH_SEPARATOR@$(OLEAN_OUT)
+OBJS = $(addprefix $(OLEAN_OUT)/, $(SRCS:.lean=.olean))
+
+SHELL = /usr/bin/env bash -euo pipefail
+
+.PHONY: all bin lib depends clean
+
+all: $(OBJS)
+
+bin: $(BIN_OUT)/$(BIN_NAME)
+
+lib: $(LIB_OUT)/$(STATIC_LIB_NAME)
+
+depends: $(DEPS)
+
+$(OLEAN_OUT)/$(PKG) $(LIB_OUT) $(BIN_OUT):
+	@mkdir -p "$@"
+
+# Make sure the .olean output directory exists so that `lean --deps` knows where this package's
+# .olean files will be located even before any of them are actually built.
+$(TEMP_OUT)/%.depend: %.lean | $(OLEAN_OUT)/$(PKG)
+	@mkdir -p "$(TEMP_OUT)/$(*D)"
+# use separate assignment to ensure failure propagation
+# convert path separators and newlines on Windows
+	@deps=`$(LEAN) --deps $< | tr '\\\\' / | tr -d '\\r'`; echo $(OLEAN_OUT)/$(<:.lean=.olean): $$deps > $@
+
+$(OLEAN_OUT)/%.olean: %.lean $(TEMP_OUT)/%.depend $(MORE_DEPS)
+ifdef CMAKE_LIKE_OUTPUT
+	@echo "[    ] Building $<"
+endif
+	@mkdir -p $(OLEAN_OUT)/$(*D)
+	$(LEAN) $(LEAN_OPTS) -o "$@" --c="$(TEMP_OUT)/$*.c.tmp" $<
+# create the .c file atomically
+	mv "$(TEMP_OUT)/$*.c.tmp" "$(TEMP_OUT)/$*.c"
+
+ifndef C_ONLY
+$(TEMP_OUT)/%.c: $(OLEAN_OUT)/%.olean
+	@
+endif
+
+$(TEMP_OUT)/%.o: $(C_OUT)/%.c
+ifdef CMAKE_LIKE_OUTPUT
+	@echo "[    ] Building $<"
+endif
+	@mkdir -p "$(@D)"
+ifdef PROFILE
+	\time -f "%U %S" $(LEANC) -c -o $@ $< $(LEANC_OPTS) 2>&1 > /dev/null | awk '{ printf "C compilation %fs\n", $$1 + $$2 }' > /dev/stderr
+else
+	$(LEANC) -c -o $@ $< $(LEANC_OPTS)
+endif
+
+$(BIN_OUT)/$(BIN_NAME): $(addprefix $(TEMP_OUT)/,$(SRCS:.lean=.o)) | $(BIN_OUT)
+ifdef CMAKE_LIKE_OUTPUT
+	@echo "[    ] Linking $@"
+endif
+ifdef PROFILE
+	\time -f "%U %S" $(LEANC) -o "$@" $^ $(LINK_OPTS) 2>&1 > /dev/null | awk '{ printf "C linking %fs\n", $$1 + $$2 }' > /dev/stderr
+else
+	$(LEANC) -o "$@" $^ $(LINK_OPTS)
+endif
+
+$(LIB_OUT)/$(STATIC_LIB_NAME): $(addprefix $(TEMP_OUT)/,$(SRCS:.lean=.o)) | $(LIB_OUT)
+	@rm -f $@
+	@$(LEAN_AR) rcs $@ $^
+
+clean:
+	rm -rf $(OUT)
+
+.PRECIOUS: $(TEMP_OUT)/%.c
+
+ifndef C_ONLY
+include $(DEPS)
+endif

@@ -1,0 +1,66 @@
+Prop
+Type
+Type
+Type 1
+Nat
+List Nat
+id Nat
+id (id (id Nat))
+List Nat
+@id Type Nat
+List.{0} Nat
+id.{2} Nat
+Sum.{0, 0} Nat Nat
+id (@id Type Nat)
+fun a => a
+fun a => a
+fun a b => a
+fun a b => a
+fun {a b} => a
+typeAs
+  ({α : Type} →
+    α → α)
+  fun {α} a => a
+fun {α}
+  [inst :
+    ToString α]
+  a =>
+  @toString α inst a
+(α : Type) → α
+(α β : Type) → α
+Type → Type → Type
+(α : Type) → α → α
+{α : Type} → α
+{α : Type} →
+  [inst :
+      ToString α] →
+    α
+∀ (x : Nat), x = x
+∀ {x : Nat}
+  [inst :
+    ToString Nat],
+  x = x
+∀ x, x = x
+0
+1
+42
+"hi"
+{ type := Nat,
+  val := 0 :
+  PointedType }
+(1, 2, 3)
+(1, 2).fst
+decide (1 < 2) ||
+  true
+id (fun a => a) 0
+typeAs Nat
+  (let x := 1;
+  do 
+    discard (pure 2)
+    let y : Nat := 3
+    pure (x + y))
+typeAs (Id Nat)
+  (pure 1 >>= pure)
+(0 ≤ 1) = False
+(0 = 1) = False
+- -0

@@ -1,0 +1,7 @@
+[1, 2]
+6
+parserPrio.lean:28:7-28:10: error: ambiguous, possible interpretations 
+  2 * 1
+  
+  [1]
+[1, 2, 3]

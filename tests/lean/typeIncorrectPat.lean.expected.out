@@ -1,0 +1,6 @@
+typeIncorrectPat.lean:2:1-2:17: error: pattern
+  true
+has type
+  Bool : Type
+but is expected to have type
+  fst✝ : Type

@@ -1,0 +1,224 @@
+name: CI
+on:
+  push:
+    branches:
+      - 'master'
+    tags:
+      - '*'
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  Build:
+    # don't schedule nightlies on forks
+    if: github.event_name != 'schedule' || github.repository == 'leanprover/lean4'
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: ${{ matrix.shell || 'nix-shell --run "bash -euxo pipefail {0}"' }}
+    strategy:
+      matrix:
+        include:
+          # portable release build: link most libraries statically and use channel with older glibc (2.27; LLVM 7)
+          - name: Linux release
+            os: ubuntu-latest
+            release: true
+            shell: nix-shell --arg pkgs "import (fetchTarball \"channel:nixos-19.03\") {{}}" --argstr llvmPackages latest --run "bash -euxo pipefail {0}"
+          - name: Linux
+            os: ubuntu-latest
+            check-stage3: true
+            test-speedcenter: true
+          - name: Linux Debug
+            os: ubuntu-latest
+            CMAKE_OPTIONS: -DCMAKE_BUILD_TYPE=Debug
+          - name: Linux fsanitize
+            os: ubuntu-latest
+            # turn off custom allocator & symbolic functions to make LSAN do its magic
+            CMAKE_OPTIONS: -DLEAN_EXTRA_CXX_FLAGS=-fsanitize=address,undefined -DLEANC_EXTRA_FLAGS='-fsanitize=address,undefined -fsanitize-link-c++-runtime' -DSMALL_ALLOCATOR=OFF -DBSYMBOLIC=OFF
+          - name: macOS
+            os: macos-latest
+            release: true
+            shell: bash -euxo pipefail {0}
+            # Mojave, oldest maintained version as of 2021
+            CMAKE_OPTIONS: -DCMAKE_OSX_DEPLOYMENT_TARGET=10.14
+          - name: Windows
+            os: windows-2022
+            release: true
+            shell: msys2 {0}
+            CMAKE_OPTIONS: -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+      # complete all jobs
+      fail-fast: false
+    name: ${{ matrix.name }}
+    env:
+      # must be inside workspace
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+      CCACHE_COMPRESS: true
+      # current cache limit
+      CCACHE_MAXSIZE: 200M
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # interferes with lean4-nightly authentication
+          persist-credentials: false
+      - name: Install Nix
+        uses: cachix/install-nix-action@v12
+        if: matrix.os == 'ubuntu-latest'
+      - name: Install MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          install: make python mingw-w64-x86_64-cmake mingw-w64-x86_64-clang mingw-w64-x86_64-ccache git unzip diffutils binutils
+        if: matrix.os == 'windows-2022'
+      - name: Install Brew Packages
+        run: |
+          brew install ccache
+        if: matrix.os == 'macos-latest'
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: .ccache
+          key: ${{ matrix.name }}-build-${{ github.sha }}
+          # fall back to (latest) previous cache
+          restore-keys: |
+            ${{ matrix.name }}-build
+      - name: Setup
+        run: |
+          # open nix-shell once for initial setup
+          true
+        if: matrix.os == 'ubuntu-latest'
+      # remove problematic tests for sanitized build
+      - name: Pre build
+        run: rm tests/compiler/StackOverflow.lean tests/compiler/StackOverflowTask.lean
+        if: matrix.name == 'Linux fsanitize'
+      - name: Build
+        run: |
+          mkdir build
+          cd build
+          OPTIONS=
+          if [[ $GITHUB_EVENT_NAME == 'schedule' && -n '${{ matrix.release }}' && -n '${{ secrets.PUSH_NIGHTLY_TOKEN }}' ]]; then
+            git remote add nightly https://foo:'${{ secrets.PUSH_NIGHTLY_TOKEN }}'@github.com/${{ github.repository_owner }}/lean4-nightly.git
+            git fetch nightly --tags
+            LEAN_VERSION_STRING="nightly-$(date -u +%F)"
+            # do nothing if commit already has a different tag
+            if [[ $(git name-rev --name-only --tags --no-undefined HEAD 2> /dev/null || echo $LEAN_VERSION_STRING) == $LEAN_VERSION_STRING ]]; then
+              OPTIONS=-DLEAN_SPECIAL_VERSION_DESC=$LEAN_VERSION_STRING
+              echo "LEAN_VERSION_STRING=$LEAN_VERSION_STRING" >> $GITHUB_ENV
+            fi
+          fi
+          cmake .. ${{ matrix.CMAKE_OPTIONS }} $OPTIONS
+          make -j4
+      # de-Nix-ify binaries
+      - name: Patch
+        if: matrix.name == 'Linux release'
+        run: |
+          cd build/stage1
+          for f in lib/lean/libleanshared.so bin/lean bin/leanpkg; do
+            cp -n $(ldd "$f" | cut -f3 -d' ' | grep -Ev 'libc|lean') lib/ || true
+            if [[ "$f" == bin/* ]]; then
+              patchelf --set-interpreter /lib64/ld-linux-x86-64.so.2 --set-rpath '$ORIGIN/../lib:$ORIGIN/../lib/lean' $f
+            else
+              # library: use executable RPATH
+              patchelf --remove-rpath $f
+            fi
+            ldd $f
+          done
+          ls -l lib/
+      - name: Patch
+        if: matrix.name == 'macOS'
+        run: |
+          cd build/stage1
+          for f in lib/lean/libleanshared.dylib bin/lean bin/leanpkg; do
+            for lib in $(otool -L $f | tail -n +2 | cut -d' ' -f1); do
+              [[ "$lib" == /usr/lib/* ]] || install_name_tool -change "$lib" "@rpath/$(basename $lib)" $f
+            done
+            otool -L $f
+          done
+          ls -l lib/
+      - name: Patch
+        if: matrix.name == 'Windows'
+        run: |
+          cd build/stage1
+          cp $(ldd bin/lean.exe | cut -f3 -d' ' | grep mingw) bin/
+          ldd bin/lean.exe
+          ls -l bin/
+      - name: Test Binary without Nix Shell
+        if: matrix.name != 'Windows'
+        shell: bash {0}
+        run: |
+          build/stage1/bin/lean -h
+      - name: Pack
+        run: cd build/stage1; cpack
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-${{ matrix.name }}
+          path: build/stage1/lean-*
+      - name: Lean stats
+        run: |
+          build/stage1/bin/lean --stats src/Lean.lean
+      - name: Test
+        run: |
+          cd build/stage1
+          ctest -j4 --output-on-failure --timeout 300 < /dev/null
+      - name: Build Stage 2
+        run: |
+          cd build
+          make -j4 stage2
+        if: matrix.build-stage2 || matrix.check-stage3
+      - name: Check Stage 3
+        run: |
+          cd build
+          make -j4 check-stage3
+        if: matrix.check-stage3
+      - name: Test Speedcenter Benchmarks
+        run: |
+          echo -1 | sudo tee /proc/sys/kernel/perf_event_paranoid
+          export BUILD=$PWD/build PATH=$PWD/build/stage1/bin:$PATH
+          nix-shell -A with-temci --run "cd tests/bench; temci exec --config speedcenter.yaml --included_blocks fast --runs 1"
+        if: matrix.test-speedcenter
+      - name: Check rebootstrap
+        run: |
+          cd build
+          make update-stage0 && make -j4
+        if: matrix.name == 'Linux'
+      - name: CCache stats
+        run: ccache -s
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ startsWith(github.ref, 'refs/tags/v') && matrix.release }}
+        with:
+          files: build/stage1/lean-*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare Nightly Release
+        if: env.LEAN_VERSION_STRING
+        run: |
+          # can't push shallow checkout
+          git fetch --unshallow
+          git fetch nightly --tags
+          if git tag $LEAN_VERSION_STRING && git push nightly $LEAN_VERSION_STRING; then
+            last_tag=$(git describe HEAD^ --abbrev=0 --tags)
+            echo -e "Changes since ${last_tag}:\n\n" > diff.md
+            #git show $last_tag:doc/changes.md > old.md
+            #./script/diff_changelogs.py old.md doc/changes.md >> diff.md
+            echo -e "*Full commit log*\n" >> diff.md
+            git log --oneline $last_tag..HEAD | sed 's/^/* /' >> diff.md
+          else
+            # make sure every runner is building the same commit
+            [ $(git rev-parse HEAD) == $(git rev-parse $LEAN_VERSION_STRING) ] || exit 11
+            echo -n > diff.md
+          fi
+      - name: Release Nightly
+        # need unreleased version for fixed `repository`
+        uses: Kha/action-gh-release@master
+        if: env.LEAN_VERSION_STRING
+        with:
+          body_path: diff.md
+          prerelease: true
+          files: build/stage1/lean-*
+          tag_name: ${{ env.LEAN_VERSION_STRING }}
+          repository: ${{ github.repository_owner }}/lean4-nightly
+        env:
+          GITHUB_TOKEN: ${{ secrets.PUSH_NIGHTLY_TOKEN }}

@@ -1,0 +1,55 @@
+SHELL := /usr/bin/env bash -euo pipefail
+
+# any absolute path to the stdlib breaks the Makefile
+export LEAN_PATH=
+export LEAN_CC=${CMAKE_C_COMPILER_LAUNCHER} ${CMAKE_C_COMPILER}
+export LEANC_GMP=${GMP_LIBRARIES}
+
+# LEAN_OPTS: don't use native code (except for primitives) since it is from the previous stage
+# MORE_DEPS: rebuild the stdlib whenever the compiler has changed
+LEANMAKE_OPTS=\
+  LEAN="${CMAKE_CROSSCOMPILING_EMULATOR} ${PREV_STAGE}/bin/lean${CMAKE_EXECUTABLE_SUFFIX}"\
+	OUT="${LIB}"\
+	LIB_OUT="${LIB}/lean"\
+	OLEAN_OUT="${LIB}/lean"\
+	BIN_OUT="${CMAKE_BINARY_DIR}/bin"\
+	LEAN_OPTS+="${LEAN_EXTRA_MAKE_OPTS}"\
+	LEANC_OPTS+="${LEANC_OPTS}"\
+	LEAN_AR="${CMAKE_AR}"\
+	MORE_DEPS+="${PREV_STAGE}/bin/lean${CMAKE_EXECUTABLE_SUFFIX}"\
+	CMAKE_LIKE_OUTPUT=1
+
+ifeq "${STAGE}" "0"
+  LEANMAKE_OPTS+=C_ONLY=1 C_OUT=../stdlib/
+endif
+
+.PHONY: Init Std Lean leanshared Leanpkg lean
+
+# These can be phony since the inner Makefile will have the correct dependencies and avoid rebuilds
+Init:
+# Use `+` to use the Make jobserver with `leanmake` for parallelized builds
+	+"${LEAN_BIN}/leanmake" lib PKG=Init $(LEANMAKE_OPTS) LEANC_OPTS+=-DLEAN_EXPORTING
+
+Std: Init
+	+"${LEAN_BIN}/leanmake" lib PKG=Std $(LEANMAKE_OPTS) LEANC_OPTS+=-DLEAN_EXPORTING
+
+Lean: Init Std
+	+"${LEAN_BIN}/leanmake" lib PKG=Lean $(LEANMAKE_OPTS) LEANC_OPTS+=-DLEAN_EXPORTING
+
+# the following targets are all invoked by separate `make` calls; see src/CMakeLists.txt
+
+# we specify the precise file names here to avoid rebuilds
+${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libleanshared${CMAKE_SHARED_LIBRARY_SUFFIX}: ${LIB}/lean/libInit.a ${LIB}/lean/libStd.a ${LIB}/lean/libLean.a ${LIB}/lean/libleancpp.a ${CMAKE_BINARY_DIR}/runtime/libleanrt_initial-exec.a
+	@echo "[    ] Building $@"
+	"${LEAN_BIN}/leanc" -shared -o $@ ${LEANSHARED_LINKER_FLAGS} ${LEANC_OPTS}
+
+leanshared: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libleanshared${CMAKE_SHARED_LIBRARY_SUFFIX}
+
+Leanpkg:
+	+"${LEAN_BIN}/leanmake" bin PKG=Leanpkg BIN_NAME=leanpkg${CMAKE_EXECUTABLE_SUFFIX} $(LEANMAKE_OPTS) LINK_OPTS='-lleanshared ${CMAKE_EXE_LINKER_FLAGS_MAKE_MAKE}'
+
+${CMAKE_BINARY_DIR}/bin/lean${CMAKE_EXECUTABLE_SUFFIX}: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libleanshared${CMAKE_SHARED_LIBRARY_SUFFIX} $(LEAN_SHELL)
+	@echo "[    ] Building $@"
+	${LEAN_BIN}/leanc $(LEAN_SHELL) -lleanshared ${CMAKE_EXE_LINKER_FLAGS_MAKE} ${LEAN_EXE_LINKER_FLAGS} -o $@
+
+lean: ${CMAKE_BINARY_DIR}/bin/lean${CMAKE_EXECUTABLE_SUFFIX}

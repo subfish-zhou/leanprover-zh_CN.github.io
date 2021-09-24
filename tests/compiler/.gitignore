@@ -1,0 +1,3 @@
+*.lean.out
+*.lean.c
+test_flags.sh
