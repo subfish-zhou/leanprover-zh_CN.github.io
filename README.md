@@ -1,3 +1,5 @@
+本页面是正在写作的lean中文手册，代码源自原手册，正在翻译
+
 This is the repository for **Lean 4**, which is currently being released as milestone releases towards a first stable release.
 [Lean 3](https://github.com/leanprover/lean) is still the latest stable release.
 
