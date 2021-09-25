@@ -1,0 +1,732 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Expressions - Lean Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="whatIsLean.html"><strong aria-hidden="true">1.</strong> What is Lean</a></li><li class="chapter-item expanded "><a href="tour.html"><strong aria-hidden="true">2.</strong> Tour of Lean</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> Setting Up Lean</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="quickstart.html"><strong aria-hidden="true">3.1.</strong> Quickstart</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Language Manual</li><li class="chapter-item expanded "><a href="using_lean.html"><strong aria-hidden="true">4.</strong> Using Lean</a></li><li class="chapter-item expanded "><a href="lexical_structure.html"><strong aria-hidden="true">5.</strong> Lexical Structure</a></li><li class="chapter-item expanded "><a href="expressions.html" class="active"><strong aria-hidden="true">6.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="declarations.html"><strong aria-hidden="true">7.</strong> Declarations</a></li><li class="chapter-item expanded "><a href="organization.html"><strong aria-hidden="true">8.</strong> Organizational features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="sections.html"><strong aria-hidden="true">8.1.</strong> Sections</a></li><li class="chapter-item expanded "><a href="namespaces.html"><strong aria-hidden="true">8.2.</strong> Namespaces</a></li><li class="chapter-item expanded "><a href="implicit.html"><strong aria-hidden="true">8.3.</strong> Implicit Arguments</a></li><li class="chapter-item expanded "><a href="autobound.html"><strong aria-hidden="true">8.4.</strong> Auto Bound Implicit Arguments</a></li></ol></li><li class="chapter-item expanded "><a href="deptypes.html"><strong aria-hidden="true">9.</strong> Dependent Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="simptypes.html"><strong aria-hidden="true">9.1.</strong> Simple Type Theory</a></li><li class="chapter-item expanded "><a href="typeobjs.html"><strong aria-hidden="true">9.2.</strong> Types as objects</a></li><li class="chapter-item expanded "><a href="funabst.html"><strong aria-hidden="true">9.3.</strong> Function Abstraction and Evaluation</a></li><li class="chapter-item expanded "><a href="introdef.html"><strong aria-hidden="true">9.4.</strong> Introducing Definitions</a></li><li class="chapter-item expanded "><a href="dep.html"><strong aria-hidden="true">9.5.</strong> What makes dependent type theory dependent?</a></li></ol></li><li class="chapter-item expanded "><a href="tactics.html"><strong aria-hidden="true">10.</strong> Tactics</a></li><li class="chapter-item expanded "><a href="syntax.html"><strong aria-hidden="true">11.</strong> Syntax Extensions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="do.html"><strong aria-hidden="true">11.1.</strong> The do Notation</a></li><li class="chapter-item expanded "><a href="stringinterp.html"><strong aria-hidden="true">11.2.</strong> String Interpolation</a></li></ol></li><li class="chapter-item expanded "><a href="metaprogramming.html"><strong aria-hidden="true">12.</strong> Metaprogramming</a></li><li class="chapter-item expanded "><a href="decltypes.html"><strong aria-hidden="true">13.</strong> Declaring New Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="enum.html"><strong aria-hidden="true">13.1.</strong> Enumerated Types</a></li><li class="chapter-item expanded "><a href="inductive.html"><strong aria-hidden="true">13.2.</strong> Inductive Types</a></li><li class="chapter-item expanded "><a href="struct.html"><strong aria-hidden="true">13.3.</strong> Structures</a></li><li class="chapter-item expanded "><a href="typeclass.html"><strong aria-hidden="true">13.4.</strong> Type classes</a></li><li class="chapter-item expanded "><a href="unifhint.html"><strong aria-hidden="true">13.5.</strong> Unification Hints</a></li></ol></li><li class="chapter-item expanded "><a href="builtintypes.html"><strong aria-hidden="true">14.</strong> Builtin Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="nat.html"><strong aria-hidden="true">14.1.</strong> Natural number</a></li><li class="chapter-item expanded "><a href="int.html"><strong aria-hidden="true">14.2.</strong> Integer</a></li><li class="chapter-item expanded "><a href="uint.html"><strong aria-hidden="true">14.3.</strong> Fixed precision unsigned integer</a></li><li class="chapter-item expanded "><a href="float.html"><strong aria-hidden="true">14.4.</strong> Float</a></li><li class="chapter-item expanded "><a href="array.html"><strong aria-hidden="true">14.5.</strong> Array</a></li><li class="chapter-item expanded "><a href="list.html"><strong aria-hidden="true">14.6.</strong> List</a></li><li class="chapter-item expanded "><a href="char.html"><strong aria-hidden="true">14.7.</strong> Character</a></li><li class="chapter-item expanded "><a href="string.html"><strong aria-hidden="true">14.8.</strong> String</a></li><li class="chapter-item expanded "><a href="option.html"><strong aria-hidden="true">14.9.</strong> Option</a></li><li class="chapter-item expanded "><a href="thunk.html"><strong aria-hidden="true">14.10.</strong> Thunk</a></li><li class="chapter-item expanded "><a href="task.html"><strong aria-hidden="true">14.11.</strong> Task and Thread</a></li></ol></li><li class="chapter-item expanded "><a href="functions.html"><strong aria-hidden="true">15.</strong> Functions</a></li><li class="chapter-item expanded "><a href="tactics.html"><strong aria-hidden="true">16.</strong> Tactics</a></li><li class="chapter-item expanded affix "><li class="part-title">Other</li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">17.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="lean3changes.html"><strong aria-hidden="true">18.</strong> Significant Changes from Lean 3</a></li><li class="chapter-item expanded "><a href="syntax_highlight_in_latex.html"><strong aria-hidden="true">19.</strong> Syntax Highlighting Lean in LaTeX</a></li><li class="chapter-item expanded affix "><li class="part-title">Development</li><li class="chapter-item expanded "><a href="dev/index.html"><strong aria-hidden="true">20.</strong> Development Guide</a></li><li class="chapter-item expanded "><a href="dev/commit_convention.html"><strong aria-hidden="true">21.</strong> Commit Convention</a></li><li class="chapter-item expanded "><a href="make/index.html"><strong aria-hidden="true">22.</strong> Building Lean</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="make/ubuntu-16.04.html"><strong aria-hidden="true">22.1.</strong> Ubuntu Setup</a></li><li class="chapter-item expanded "><a href="make/osx-10.9.html"><strong aria-hidden="true">22.2.</strong> macOS Setup</a></li><li class="chapter-item expanded "><a href="make/msys2.html"><strong aria-hidden="true">22.3.</strong> Windows MSYS2 Setup</a></li><li class="chapter-item expanded "><a href="make/wsl.html"><strong aria-hidden="true">22.4.</strong> Windows with WSL</a></li><li class="chapter-item expanded "><a href="make/nix.html"><strong aria-hidden="true">22.5.</strong> Nix Setup (Experimental)</a></li></ol></li><li class="chapter-item expanded "><a href="dev/testing.html"><strong aria-hidden="true">23.</strong> Unit Testing</a></li><li class="chapter-item expanded "><a href="dev/mdbook.html"><strong aria-hidden="true">24.</strong> Building This Manual</a></li><li class="chapter-item expanded "><a href="dev/fixing_tests.html"><strong aria-hidden="true">25.</strong> Fixing Tests</a></li><li class="chapter-item expanded "><a href="dev/debugging.html"><strong aria-hidden="true">26.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="dev/cpp_coding_style.html"><strong aria-hidden="true">27.</strong> C++ Coding Style</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Lean Manual</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/leanprover/lean4" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#expressions" id="expressions">Expressions</a></h1>
+<h1><a class="header" href="#a-name_universesmdauniverses" id="a-name_universesmdauniverses"><a name="_universes.md"></a>Universes</a></h1>
+<p>Every type in Lean is, by definition, an expression of type <code>Sort u</code>
+for some universe level <code>u</code>. A universe level is one of the
+following:</p>
+<ul>
+<li>a natural number, <code>n</code></li>
+<li>a universe variable, <code>u</code> (declared with the command <code>universe</code> or <code>universes</code>)</li>
+<li>an expression <code>u + n</code>, where <code>u</code> is a universe level and <code>n</code> is a natural number</li>
+<li>an expression <code>max u v</code>, where <code>u</code> and <code>v</code> are universes</li>
+<li>an expression <code>imax u v</code>, where <code>u</code> and <code>v</code> are universe levels</li>
+</ul>
+<p>The last one denotes the universe level <code>0</code> if <code>v</code> is <code>0</code>, and <code>max u v</code> otherwise.</p>
+<pre><code class="language-lean">universe u v
+
+#check Sort u
+#check Sort 5
+#check Sort (u + 1)
+#check Sort (u + 3)
+#check Sort (max u v)
+#check Sort (max (u + 3) v)
+#check Sort (imax (u + 3) v)
+#check Prop
+#check Type
+</code></pre>
+<h1><a class="header" href="#a-name_expression_syntaxaexpression-syntax" id="a-name_expression_syntaxaexpression-syntax"><a name="_expression_syntax"></a>Expression Syntax</a></h1>
+<p>The set of expressions in Lean is defined inductively as follows:</p>
+<ul>
+<li><code>Sort u</code> : the universe of types at universe level <code>u</code></li>
+<li><code>c</code> : where <code>c</code> is an identifier denoting a declared constant or a defined object</li>
+<li><code>x</code> : where <code>x</code> is a variable in the local context in which the expression is interpreted</li>
+<li><code>m?</code>  : where <code>m?</code> is a metavariable in the metavariable context in which the expression is interpreted,
+you can view metavariable as a &quot;hole&quot; that still needs to be synthesized</li>
+<li><code>(x : α) → β</code> : the type of functions taking an element <code>x</code> of <code>α</code> to an element of <code>β</code>,
+where <code>β</code> is an expression whose type is a <code>Sort</code></li>
+<li><code>s t</code> : the result of applying <code>s</code> to <code>t</code>, where <code>s</code> and <code>t</code> are expressions</li>
+<li><code>fun x : α =&gt; t</code> or <code>λ x : α =&gt; t</code>: the function mapping any value <code>x</code> of type <code>α</code> to <code>t</code>, where <code>t</code> is an expression</li>
+<li><code>let x := t; s</code> : a local definition, denotes the value of <code>s</code> when <code>x</code> is replaced by <code>t</code></li>
+<li><code>s.i</code>   : a projection, denotes the value of the <code>i</code>-th field of <code>s</code></li>
+<li><code>lit</code>   : a natural number or string literal</li>
+<li><code>mdata k s</code> : the expression <code>s</code> decorated with metadata <code>k</code>, where is a key-value map</li>
+</ul>
+<p>Every well formed term in Lean has a <em>type</em>, which itself is an expression of type <code>Sort u</code> for some <code>u</code>. The fact that a term <code>t</code> has type <code>α</code> is written <code>t : α</code>.</p>
+<p>For an expression to be well formed, its components have to satisfy certain typing constraints. These, in turn, determine the type of the resulting term, as follows:</p>
+<ul>
+<li><code>Sort u : Sort (u + 1)</code></li>
+<li><code>c : α</code>, where <code>α</code> is the type that <code>c</code> has been declared or defined to have</li>
+<li><code>x : α</code>, where <code>α</code> is the type that <code>x</code> has been assigned in the local context where it is interpreted</li>
+<li><code>?m : α</code>, where <code>α</code> is the type that <code>?m</code> has been declared in the metavariable context where it is interpreted</li>
+<li><code>(x : α) → β : Sort (imax u v)</code> where <code>α : Sort u</code>, and <code>β : Sort v</code> assuming <code>x : α</code></li>
+<li><code>s t : β[t/x]</code> where <code>s</code> has type <code>(x : α) → β</code> and <code>t</code> has type <code>α</code></li>
+<li><code>(fun x : α =&gt; t) : (x : α) → β</code> if <code>t</code> has type <code>β</code> whenever <code>x</code> has type <code>α</code></li>
+<li><code>(let x := t; s) : β[t/x]</code> where <code>t</code> has type <code>α</code> and <code>s</code> has type <code>β</code> assuming <code>x : α</code></li>
+<li><code>lit : Nat</code> if <code>lit</code> is a numeral</li>
+<li><code>lit : String</code> if <code>lit</code> is a string literal</li>
+<li><code>mdata k s : α</code> if <code>s : α</code></li>
+<li><code>s.i : α</code> if <code>s : β</code> and <code>β</code> is an inductive datatype with only one constructor, and <code>i</code>-th field has type <code>α</code></li>
+</ul>
+<p><code>Prop</code> abbreviates <code>Sort 0</code>, <code>Type</code> abbreviates <code>Sort 1</code>, and
+<code>Type u</code> abbreviates <code>Sort (u + 1)</code> when <code>u</code> is a universe
+variable. We say &quot;<code>α</code> is a type&quot; to express <code>α : Type u</code> for some
+<code>u</code>, and we say &quot;<code>p</code> is a proposition&quot; to express
+<code>p : Prop</code>. Using the <em>propositions as types</em> correspondence, given
+<code>p : Prop</code>, we refer to an expression <code>t : p</code> as a <em>proof</em> of <code>p</code>. In
+contrast, given <code>α : Type u</code> for some <code>u</code> and <code>t : α</code>, we
+sometimes refer to <code>t</code> as <em>data</em>.</p>
+<p>When the expression <code>β</code> in <code>(x : α) → β</code> does not depend on <code>x</code>,
+it can be written <code>α → β</code>. As usual, the variable <code>x</code> is bound in
+<code>(x : α) →  β</code>, <code>fun x : α =&gt; t</code>, and <code>let x := t; s</code>. The
+expression <code>∀ x : α, β</code> is alternative syntax for <code>(x : α) →  β</code>,
+and is intended to be used when <code>β</code> is a proposition. An underscore
+can be used to generate an internal variable in a binder, as in
+<code>fun _ : α =&gt; t</code>.</p>
+<p><em>Metavariables</em>, that is, temporary placeholders, are used in the
+process of constructing terms. Terms that are added to the
+environment contain neither metavariable nor variables, which is to
+say, they are fully elaborated and make sense in the empty context.</p>
+<p>Axioms can be declared using the <code>axiom</code> keyword.
+Similarly, objects can be defined in various ways, such as using <code>def</code> and <code>theorem</code> keywords.
+See <a href="./declarations.html">Chapter Declarations</a> for more information.</p>
+<p>Writing an expression <code>(t : α)</code> forces Lean to elaborate <code>t</code> so that it has type <code>α</code> or report an error if it fails.</p>
+<p>Lean supports anonymous constructor notation, anonymous projections,
+and various forms of match syntax, including destructuring <code>fun</code> and
+<code>let</code>. These, as well as notation for common data types (like pairs,
+lists, and so on) are discussed in <a href="./declarations.html">Chapter Declarations</a>
+in connection with inductive types.</p>
+<pre><code class="language-lean">universe u
+
+#check Sort 0
+#check Prop
+#check Sort 1
+#check Type
+#check Sort u
+#check Sort (u+1)
+
+#check Nat → Bool
+#check (α : Type u) → List α
+#check (α : Type u) → (β : Type u) → Sum α β
+#check fun x : Nat =&gt; x
+#check fun (α : Type u) (x : α) =&gt; x
+#check let x := 5; x * 2
+#check &quot;hello&quot;
+#check (fun x =&gt; x) true
+</code></pre>
+<h1><a class="header" href="#a-name_implicit_argumentsaimplicit-arguments" id="a-name_implicit_argumentsaimplicit-arguments"><a name="_implicit_arguments"></a>Implicit Arguments</a></h1>
+<p>When declaring arguments to defined objects in Lean (for example, with
+<code>def</code>, <code>theorem</code>, <code>axiom</code>, <code>constant</code>, <code>inductive</code>, or
+<code>structure</code>; see <a href="./declarations.html">Chapter Declarations</a> or when
+declaring variables in sections (see <a href="./other_commands.html">Chapter Other Commands</a>),
+arguments can be annotated as <em>explicit</em> or <em>implicit</em>.
+This determines how expressions containing the object are interpreted.</p>
+<ul>
+<li><code>(x : α)</code> : an explicit argument of type <code>α</code></li>
+<li><code>{x : α}</code> : an implicit argument, eagerly inserted</li>
+<li><code>⦃x : α⦄</code> or <code>{{x : α}}</code> : an implicit argument, weakly inserted</li>
+<li><code>[x : α]</code> : an implicit argument that should be inferred by type class resolution</li>
+<li><code>(x : α := v)</code> : an optional argument, with default value <code>v</code></li>
+<li><code>(x : α := by tac)</code> : an implicit argument, to be synthesized by tactic <code>tac</code></li>
+</ul>
+<p>The name of the variable can be omitted from a class resolution
+argument, in which case an internal name is generated.</p>
+<p>When a function has an explicit argument, you can nonetheless ask
+Lean's elaborator to infer the argument automatically, by entering it
+as an underscore (<code>_</code>). Conversely, writing <code>@foo</code> indicates that
+all of the arguments to be <code>foo</code> are to be given explicitly,
+independent of how <code>foo</code> was declared.  You can also provide a value
+for an implicit parameter using named arguments.  Named arguments
+enable you to specify an argument for a parameter by matching the
+argument with its name rather than with its position in the parameter
+list.  If you don't remember the order of the parameters but know
+their names, you can send the arguments in any order.  You may also
+provide the value for an implicit parameter whenLean failed to infer
+it. Named arguments also improve the readability of your code by
+identifying what each argument represents.</p>
+<pre><code class="language-lean">def add (x y : Nat) : Nat :=
+  x + y
+
+#check add 2 3 -- Nat
+#eval add 2 3  -- 5
+
+def id1 (α : Type u) (x : α) : α := x
+
+#check id1 Nat 3
+#check id1 _ 3
+
+def id2 {α : Type u} (x : α) : α := x
+
+#check id2 3
+#check @id2 Nat 3
+#check id2 (α := Nat) 3
+#check id2
+#check id2 (α := Nat)
+
+def id3 {{α : Type u}} (x : α) : α := x
+
+#check id3 3
+#check @id3 Nat 3
+#check (id3 : (α : Type) → α → α)
+
+class Cls where
+  val : Nat
+
+instance Cls_five : Cls where
+  val := 5
+
+def ex2 [c : Cls] : Nat := c.val
+
+example : ex2 = 5 := rfl
+
+def ex2a [Cls] : Nat := ex2
+
+example : ex2a = 5 := rfl
+
+def ex3 (x : Nat := 5) := x
+
+#check ex3 2
+#check ex3
+
+example : ex3 = 5 := rfl
+
+def ex4 (x : Nat) (y : Nat := x) : Nat :=
+  x * y
+
+example : ex4 x = x * x :=
+  rfl
+</code></pre>
+<h1><a class="header" href="#basic-data-types-and-assertions" id="basic-data-types-and-assertions">Basic Data Types and Assertions</a></h1>
+<p>The core library contains a number of basic data types, such as the
+natural numbers (<code>Nat</code>), the integers (<code>Int</code>), the
+booleans (<code>Bool</code>), and common operations on these, as well as the
+usual logical quantifiers and connectives. Some example are given
+below. A list of common notations and their precedences can be found
+in a <a href="https://github.com/leanprover/lean4/blob/master/src/Init/Notation.lean">file</a>
+in the core library. The core library also contains a number of basic
+data type constructors. Definitions can also be found the
+<a href="https://github.com/leanprover/lean4/blob/master/src/Init/Data">Data</a>
+directory of the core library. For more information, see also <a href="./libraries.html">Chapter libraries</a>.</p>
+<pre><code>/- numbers -/
+def f1 (a b c : Nat) : Nat :=
+  a^2 + b^2 + c^2
+
+def p1 (a b c d : Nat) : Prop :=
+  (a + b)^c ≤ d
+
+def p2 (i j k : Int) : Prop :=
+  i % (j * k) = 0
+
+
+/- booleans -/
+
+def f2 (a b c : Bool) : Bool :=
+  a &amp;&amp; (b || c)
+
+/- pairs -/
+
+#eval (1, 2)
+
+def p : Nat × Bool := (1,
+
+section
+variables (a b c : Nat) (p : Nat × bool)
+
+#check (1, 2)
+#check p.1 * 2
+#check p.2 &amp;&amp; tt
+#check ((1, 2, 3) : Nat × Nat × Nat)
+end
+
+/- lists -/
+section
+variables x y z : Nat
+variables xs ys zs : list Nat
+open list
+
+#check (1 :: xs) ++ (y :: zs) ++ [1,2,3]
+#check append (cons 1 xs) (cons y zs)
+#check map (λ x, x^2) [1, 2, 3]
+end
+
+/- sets -/
+section
+variables s t u : set Nat
+
+#check ({1, 2, 3} ∩ s) ∪ ({x | x &lt; 7} ∩ t)
+end
+
+/- strings and characters -/
+#check &quot;hello world&quot;
+#check 'a'
+
+/- assertions -/
+#check ∀ a b c n : Nat,
+  a ≠ 0 ∧ b ≠ 0 ∧ c ≠ 0 ∧ n &gt; 2 → a^n + b^n ≠ c^n
+
+def unbounded (f : Nat → Nat) : Prop := ∀ M, ∃ n, f n ≥ M
+</code></pre>
+<p>.. _constructors_projections_and_matching:</p>
+<h1><a class="header" href="#constructors-projections-and-matching" id="constructors-projections-and-matching">Constructors, Projections, and Matching</a></h1>
+<p>Lean's foundation, the <em>Calculus of Inductive Constructions</em>, supports the declaration of <em>inductive types</em>. Such types can have any number of <em>constructors</em>, and an associated <em>eliminator</em> (or <em>recursor</em>). Inductive types with one constructor, known as <em>structures</em>, have <em>projections</em>. The full syntax of inductive types is described in :numref:<code>Chapter %s &lt;declarations&gt;</code>, but here we describe some syntactic elements that facilitate their use in expressions.</p>
+<p>When Lean can infer the type of an expression and it is an inductive type with one constructor, then one can write <code>⟨a1, a2, ..., an⟩</code> to apply the constructor without naming it. For example, <code>⟨a, b⟩</code> denotes <code>prod.mk a b</code> in a context where the expression can be inferred to be a pair, and <code>⟨h₁, h₂⟩</code> denotes <code>and.intro h₁ h₂</code> in a context when the expression can be inferred to be a conjunction. The notation will nest constructions automatically, so <code>⟨a1, a2, a3⟩</code> is interpreted as <code>prod.mk a1 (prod.mk a2 a3)</code> when the expression is expected to have a type of the form <code>α1 × α2 × α3</code>. (The latter is interpreted as <code>α1 × (α2 × α3)</code>, since the product associates to the right.)</p>
+<p>Similarly, one can use &quot;dot notation&quot; for projections: one can write <code>p.fst</code> and <code>p.snd</code> for <code>prod.fst p</code> and <code>prod.snd p</code> when Lean can infer that <code>p</code> is an element of a product, and <code>h.left</code> and <code>h.right</code> for <code>and.left h</code> and <code>and.right h</code> when <code>h</code> is a conjunction.</p>
+<p>The anonymous projector notation can used more generally for any objects defined in a <em>namespace</em> (see :numref:<code>Chapter %s &lt;other_commands&gt;</code>). For example, if <code>l</code> has type <code>list α</code> then <code>l.map f</code> abbreviates <code>list.map f l</code>, in which <code>l</code> has been placed at the first argument position where <code>list.map</code> expects a <code>list</code>.</p>
+<p>Finally, for data types with one constructor, one destruct an element by pattern matching using the <code>let</code> and <code>assume</code> constructs, as in the examples below. Internally, these are interpreted using the <code>match</code> construct, which is in turn compiled down for the eliminator for the inductive type, as described in :numref:<code>Chapter %s &lt;declarations&gt;</code>.</p>
+<p>.. code-block:: lean</p>
+<pre><code>universes u v
+variables {α : Type u} {β : Type v}
+
+def p : Nat × ℤ := ⟨1, 2⟩
+#check p.fst
+#check p.snd
+
+def p' : Nat × ℤ × bool := ⟨1, 2, tt⟩
+#check p'.fst
+#check p'.snd.fst
+#check p'.snd.snd
+
+def swap_pair (p : α × β) : β × α :=
+⟨p.snd, p.fst⟩
+
+theorem swap_conj {a b : Prop} (h : a ∧ b) : b ∧ a :=
+⟨h.right, h.left⟩
+
+#check [1, 2, 3].append [2, 3, 4]
+#check [1, 2, 3].map (λ x, x^2)
+
+example (p q : Prop) : p ∧ q → q ∧ p :=
+λ h, ⟨h.right, h.left⟩
+
+def swap_pair' (p : α × β) : β × α :=
+let (x, y) := p in (y, x)
+
+theorem swap_conj' {a b : Prop} (h : a ∧ b) : b ∧ a :=
+let ⟨ha, hb⟩ := h in ⟨hb, ha⟩
+
+def swap_pair'' : α × β → β × α :=
+λ ⟨x, y⟩, (y, x)
+
+theorem swap_conj'' {a b : Prop} : a ∧ b → b ∧ a :=
+assume ⟨ha, hb⟩, ⟨hb, ha⟩
+</code></pre>
+<h1><a class="header" href="#a-name_structured_proofsastructured-proofs" id="a-name_structured_proofsastructured-proofs"><a name="_structured_proofs"></a>Structured Proofs</a></h1>
+<p>Syntactic sugar is provided for writing structured proof terms:</p>
+<ul>
+<li><code>have h : p := s; t</code> is sugar for <code>(fun h : p =&gt; t) s</code></li>
+<li><code>suffices h : p from s; t</code> is sugar for <code>(λ h : p =&gt; s) t</code></li>
+<li><code>suffices h : p by s; t</code> is sugar for <code>(suffixes h : p from by s; t)</code></li>
+<li><code>show p from t</code> is sugar for <code>(have this : p := t; this)</code></li>
+<li><code>show p by tac</code> is sugar for <code>(show p from by tac)</code></li>
+</ul>
+<p>Types can be omitted when they can be inferred by Lean. Lean also
+allows <code>have : p := t; s</code>, which gives the assumption the
+name <code>this</code> in the local context.  Similarly, Lean recognizes the
+variant <code>suffices p from s; t</code>, which use the name <code>this</code> for the new hypothesis.</p>
+<p>The notation <code>‹p›</code> is notation for <code>(by assumption : p)</code>, and can
+therefore be used to apply hypotheses in the local context.</p>
+<p>As noted in <a href="#constructors_projections_and_matching">Constructors, Projections and Matching</a>,
+anonymous constructors and projections and match syntax can be used in proofs just as in expressions that denote data.</p>
+<p>.. code-block:: lean</p>
+<pre><code>example (p q r : Prop) : p → (q ∧ r) → p ∧ q :=
+assume h₁ : p,
+assume h₂ : q ∧ r,
+have h₃ : q, from and.left h₂,
+show p ∧ q, from and.intro h₁ h₃
+
+example (p q r : Prop) : p → (q ∧ r) → p ∧ q :=
+assume : p,
+assume : q ∧ r,
+have q, from and.left this,
+show p ∧ q, from and.intro ‹p› this
+
+example (p q r : Prop) : p → (q ∧ r) → p ∧ q :=
+assume h₁ : p,
+assume h₂ : q ∧ r,
+suffices h₃ : q, from and.intro h₁ h₃,
+show q, from and.left h₂
+</code></pre>
+<p>Lean also supports a calculational environment, which is introduced with the keyword <code>calc</code>. The syntax is as follows:</p>
+<p>.. code-block:: text</p>
+<pre><code>calc
+  &lt;expr&gt;_0  'op_1'  &lt;expr&gt;_1  ':'  &lt;proof&gt;_1
+    '...'   'op_2'  &lt;expr&gt;_2  ':'  &lt;proof&gt;_2
+     ...
+    '...'   'op_n'  &lt;expr&gt;_n  ':'  &lt;proof&gt;_n
+</code></pre>
+<p>Each <code>&lt;proof&gt;_i</code> is a proof for <code>&lt;expr&gt;_{i-1} op_i &lt;expr&gt;_i</code>.</p>
+<p>Here is an example:</p>
+<p>.. code-block:: lean</p>
+<pre><code>variables (a b c d e : Nat)
+variable h1 : a = b
+variable h2 : b = c + 1
+variable h3 : c = d
+variable h4 : e = 1 + d
+
+theorem T : a = e :=
+calc
+  a     = b      : h1
+    ... = c + 1  : h2
+    ... = d + 1  : congr_arg _ h3
+    ... = 1 + d  : add_comm d (1 : Nat)
+    ... =  e     : eq.symm h4
+</code></pre>
+<p>The style of writing proofs is most effective when it is used in conjunction with the <code>simp</code> and <code>rewrite</code> tactics.</p>
+<p>.. _computation:</p>
+<h1><a class="header" href="#computation" id="computation">Computation</a></h1>
+<p>Two expressions that differ up to a renaming of their bound variables are said to be <em>α-equivalent</em>, and are treated as syntactically equivalent by Lean.</p>
+<p>Every expression in Lean has a natural computational interpretation, unless it involves classical elements that block computation, as described in the next section. The system recognizes the following notions of <em>reduction</em>:</p>
+<ul>
+<li><em>β-reduction</em> : An expression <code>(λ x, t) s</code> β-reduces to <code>t[s/x]</code>, that is, the result of replacing <code>x</code> by <code>s</code> in <code>t</code>.</li>
+<li><em>ζ-reduction</em> : An expression <code>let x := s in t</code> ζ-reduces to <code>t[s/x]</code>.</li>
+<li><em>δ-reduction</em> : If <code>c</code> is a defined constant with definition <code>t</code>, then <code>c</code> δ-reduces to to <code>t</code>.</li>
+<li><em>ι-reduction</em> : When a function defined by recursion on an inductive type is applied to an element given by an explicit constructor, the result ι-reduces to the specified function value, as described in :numref:<code>inductive_types</code>.</li>
+</ul>
+<p>The reduction relation is transitive, which is to say, is <code>s</code> reduces to <code>s'</code> and <code>t</code> reduces to <code>t'</code>, then <code>s t</code> reduces to <code>s' t'</code>, <code>λ x, s</code> reduces to <code>λ x, s'</code>, and so on. If <code>s</code> and <code>t</code> reduce to a common term, they are said to be <em>definitionally equal</em>. Definitional equality is defined to be the smallest equivalence relation that satisfies all these properties and also includes α-equivalence and the following two relations:</p>
+<ul>
+<li><em>η-equivalence</em> : An expression <code>(λx, t x)</code> is η-equivalent to <code>t</code>, assuming <code>x</code> does not occur in <code>t</code>.</li>
+<li><em>proof irrelevance</em> : If <code>p : Prop</code>, <code>s : p</code>, and <code>t : p</code>, then <code>s</code> and <code>t</code> are  considered to be equivalent.</li>
+</ul>
+<p>This last fact reflects the intuition that once we have proved a proposition <code>p</code>, we only care that is has been proved; the proof does nothing more than witness the fact that <code>p</code> is true.</p>
+<p>Definitional equality is a strong notion of equalty of values. Lean's logical foundations sanction treating definitionally equal terms as being the same when checking that a term is well-typed and/or that it has a given type.</p>
+<p>The reduction relation is believed to be strongly normalizing, which is to say, every sequence of reductions applied to a term will eventually terminate. The property guarantees that Lean's type-checking algorithm terminates, at least in principle. The consistency of Lean and its soundness with respect to set-theoretic semantics do not depend on either of these properties.</p>
+<p>Lean provides two commands to compute with expressions:</p>
+<ul>
+<li><code>#reduce t</code> : use the kernel type-checking procedures to carry out reductions on <code>t</code> until no more reductions are possible, and show the result</li>
+<li><code>#eval t</code> : evaluate <code>t</code> using a fast bytecode evaluator, and show the result</li>
+</ul>
+<p>Every computable definition in Lean is compiled to bytecode at definition time. Bytecode evaluation is more liberal than kernel evaluation: types and all propositional information are erased, and functions are evaluated using a stack-based virtual machine. As a result, <code>#eval</code> is more efficient than <code>#reduce,</code> and can be used to execute complex programs. In contrast, <code>#reduce</code> is designed to be small and reliable, and to produce type-correct terms at each step. Bytecode is never used in type checking, so as far as soundness and consistency are concerned, only kernel reduction is part of the trusted computing base.</p>
+<p>.. code-block:: lean</p>
+<pre><code>#reduce (λ x, x + 3) 5
+#eval   (λ x, x + 3) 5
+
+#reduce let x := 5 in x + 3
+#eval   let x := 5 in x + 3
+
+def f x := x + 3
+
+#reduce f 5
+#eval   f 5
+
+#reduce @nat.rec (λ n, Nat) (0 : Nat)
+                 (λ n recval : Nat, recval + n + 1) (5 : Nat)
+#eval   @nat.rec (λ n, Nat) (0 : Nat)
+                 (λ n recval : Nat, recval + n + 1) (5 : Nat)
+
+def g : Nat → Nat
+| 0     := 0
+| (n+1) := g n + n + 1
+
+#reduce g 5
+#eval   g 5
+
+#eval   g 50000
+
+example : (λ x, x + 3) 5 = 8 := rfl
+example : (λ x, f x) = f := rfl
+example (p : Prop) (h₁ h₂ : p) : h₁ = h₂ := rfl
+</code></pre>
+<p>Note: the combination of proof irrelevance and singleton <code>Prop</code> elimination in ι-reduction renders the ideal version of definitional equality, as described above, undecidable. Lean's procedure for checking definitional equality is only an approximation to the ideal. It is not transitive, as illustrated by the example below. Once again, this does not compromise the consistency or soundness of Lean; it only means that Lean is more conservative in the terms it recognizes as well typed, and this does not cause problems in practice. Singleton elimination will be discussed in greater detail in :numref:<code>inductive_types</code>.</p>
+<p>.. code-block:: lean</p>
+<pre><code>def R (x y : unit) := false
+def accrec := @acc.rec unit R (λ_, unit) (λ _ a ih, ()) ()
+example (h) : accrec h = accrec (acc.intro _ (λ y, acc.inv h)) :=
+              rfl
+example (h) : accrec (acc.intro _ (λ y, acc.inv h)) = () := rfl
+example (h) : accrec h = () := sorry   -- rfl fails
+</code></pre>
+<h1><a class="header" href="#axioms" id="axioms">Axioms</a></h1>
+<p>Lean's foundational framework consists of:</p>
+<ul>
+<li>
+<p>type universes and dependent function types, as described above</p>
+</li>
+<li>
+<p>inductive definitions, as described in :numref:<code>inductive_types</code> and :numref:<code>inductive_families</code>.</p>
+</li>
+</ul>
+<p>In addition, the core library defines (and trusts) the following axiomatic extensions:</p>
+<ul>
+<li>
+<p>propositional extensionality:</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide</p>
+<p>-- BEGIN
+axiom propext {a b : Prop} : (a ↔ b) → a = b
+-- END</p>
+<p>end hide</p>
+</li>
+<li>
+<p>quotients:</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+-- BEGIN
+universes u v</p>
+<p>constant quot      : Π {α : Sort u}, (α → α → Prop) → Sort u</p>
+<p>constant quot.mk   : Π {α : Sort u} (r : α → α → Prop),
+α → quot r</p>
+<p>axiom    quot.ind  : ∀ {α : Sort u} {r : α → α → Prop}
+{β : quot r → Prop},
+(∀ a, β (quot.mk r a)) →
+∀ (q : quot r), β q</p>
+<p>constant quot.lift : Π {α : Sort u} {r : α → α → Prop}
+{β : Sort u} (f : α → β),
+(∀ a b, r a b → f a = f b) → quot r → β</p>
+<p>axiom quot.sound   : ∀ {α : Type u} {r : α → α → Prop}
+{a b : α},
+r a b → quot.mk r a = quot.mk r b
+-- END
+end hide</p>
+<p><code>quot r</code> represents the quotient of <code>α</code> by the smallest equivalence relation containing <code>r</code>. <code>quot.mk</code> and <code>quot.lift</code> satisfy the following computation rule:</p>
+<p>.. code-block:: text</p>
+<p>quot.lift f h (quot.mk r a) = f a</p>
+</li>
+<li>
+<p>choice:</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+universe u</p>
+<p>-- BEGIN
+axiom choice {α : Sort u} : nonempty α → α
+-- END</p>
+<p>end hide</p>
+<p>Here <code>nonempty α</code> is defined as follows:</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+universe u</p>
+<p>-- BEGIN
+class inductive nonempty (α : Sort u) : Prop
+| intro : α → nonempty
+-- END</p>
+<p>end hide</p>
+<p>It is equivalent to  <code>∃ x : α, true</code>.</p>
+</li>
+</ul>
+<p>The quotient construction implies function extensionality. The <code>choice</code> principle, in conjunction with the others, makes the axiomatic foundation classical; in particular, it implies the law of the excluded middle and propositional decidability. Functions that make use of <code>choice</code> to produce data are incompatible with a computational interpretation, and do not produce bytecode. They have to be declared <code>noncomputable</code>.</p>
+<p>For metaprogramming purposes, Lean also allows the definition of objects which stand outside the object language. These are denoted with the <code>meta</code> keyword, as described in :numref:<code>Chapter %s &lt;programming&gt;</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="lexical_structure.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="declarations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="lexical_structure.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="declarations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

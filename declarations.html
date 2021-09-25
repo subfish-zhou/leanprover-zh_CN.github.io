@@ -1,0 +1,898 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Declarations - Lean Manual</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="whatIsLean.html"><strong aria-hidden="true">1.</strong> What is Lean</a></li><li class="chapter-item expanded "><a href="tour.html"><strong aria-hidden="true">2.</strong> Tour of Lean</a></li><li class="chapter-item expanded "><a href="setup.html"><strong aria-hidden="true">3.</strong> Setting Up Lean</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="quickstart.html"><strong aria-hidden="true">3.1.</strong> Quickstart</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Language Manual</li><li class="chapter-item expanded "><a href="using_lean.html"><strong aria-hidden="true">4.</strong> Using Lean</a></li><li class="chapter-item expanded "><a href="lexical_structure.html"><strong aria-hidden="true">5.</strong> Lexical Structure</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">6.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="declarations.html" class="active"><strong aria-hidden="true">7.</strong> Declarations</a></li><li class="chapter-item expanded "><a href="organization.html"><strong aria-hidden="true">8.</strong> Organizational features</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="sections.html"><strong aria-hidden="true">8.1.</strong> Sections</a></li><li class="chapter-item expanded "><a href="namespaces.html"><strong aria-hidden="true">8.2.</strong> Namespaces</a></li><li class="chapter-item expanded "><a href="implicit.html"><strong aria-hidden="true">8.3.</strong> Implicit Arguments</a></li><li class="chapter-item expanded "><a href="autobound.html"><strong aria-hidden="true">8.4.</strong> Auto Bound Implicit Arguments</a></li></ol></li><li class="chapter-item expanded "><a href="deptypes.html"><strong aria-hidden="true">9.</strong> Dependent Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="simptypes.html"><strong aria-hidden="true">9.1.</strong> Simple Type Theory</a></li><li class="chapter-item expanded "><a href="typeobjs.html"><strong aria-hidden="true">9.2.</strong> Types as objects</a></li><li class="chapter-item expanded "><a href="funabst.html"><strong aria-hidden="true">9.3.</strong> Function Abstraction and Evaluation</a></li><li class="chapter-item expanded "><a href="introdef.html"><strong aria-hidden="true">9.4.</strong> Introducing Definitions</a></li><li class="chapter-item expanded "><a href="dep.html"><strong aria-hidden="true">9.5.</strong> What makes dependent type theory dependent?</a></li></ol></li><li class="chapter-item expanded "><a href="tactics.html"><strong aria-hidden="true">10.</strong> Tactics</a></li><li class="chapter-item expanded "><a href="syntax.html"><strong aria-hidden="true">11.</strong> Syntax Extensions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="do.html"><strong aria-hidden="true">11.1.</strong> The do Notation</a></li><li class="chapter-item expanded "><a href="stringinterp.html"><strong aria-hidden="true">11.2.</strong> String Interpolation</a></li></ol></li><li class="chapter-item expanded "><a href="metaprogramming.html"><strong aria-hidden="true">12.</strong> Metaprogramming</a></li><li class="chapter-item expanded "><a href="decltypes.html"><strong aria-hidden="true">13.</strong> Declaring New Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="enum.html"><strong aria-hidden="true">13.1.</strong> Enumerated Types</a></li><li class="chapter-item expanded "><a href="inductive.html"><strong aria-hidden="true">13.2.</strong> Inductive Types</a></li><li class="chapter-item expanded "><a href="struct.html"><strong aria-hidden="true">13.3.</strong> Structures</a></li><li class="chapter-item expanded "><a href="typeclass.html"><strong aria-hidden="true">13.4.</strong> Type classes</a></li><li class="chapter-item expanded "><a href="unifhint.html"><strong aria-hidden="true">13.5.</strong> Unification Hints</a></li></ol></li><li class="chapter-item expanded "><a href="builtintypes.html"><strong aria-hidden="true">14.</strong> Builtin Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="nat.html"><strong aria-hidden="true">14.1.</strong> Natural number</a></li><li class="chapter-item expanded "><a href="int.html"><strong aria-hidden="true">14.2.</strong> Integer</a></li><li class="chapter-item expanded "><a href="uint.html"><strong aria-hidden="true">14.3.</strong> Fixed precision unsigned integer</a></li><li class="chapter-item expanded "><a href="float.html"><strong aria-hidden="true">14.4.</strong> Float</a></li><li class="chapter-item expanded "><a href="array.html"><strong aria-hidden="true">14.5.</strong> Array</a></li><li class="chapter-item expanded "><a href="list.html"><strong aria-hidden="true">14.6.</strong> List</a></li><li class="chapter-item expanded "><a href="char.html"><strong aria-hidden="true">14.7.</strong> Character</a></li><li class="chapter-item expanded "><a href="string.html"><strong aria-hidden="true">14.8.</strong> String</a></li><li class="chapter-item expanded "><a href="option.html"><strong aria-hidden="true">14.9.</strong> Option</a></li><li class="chapter-item expanded "><a href="thunk.html"><strong aria-hidden="true">14.10.</strong> Thunk</a></li><li class="chapter-item expanded "><a href="task.html"><strong aria-hidden="true">14.11.</strong> Task and Thread</a></li></ol></li><li class="chapter-item expanded "><a href="functions.html"><strong aria-hidden="true">15.</strong> Functions</a></li><li class="chapter-item expanded "><a href="tactics.html"><strong aria-hidden="true">16.</strong> Tactics</a></li><li class="chapter-item expanded affix "><li class="part-title">Other</li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">17.</strong> Frequently Asked Questions</a></li><li class="chapter-item expanded "><a href="lean3changes.html"><strong aria-hidden="true">18.</strong> Significant Changes from Lean 3</a></li><li class="chapter-item expanded "><a href="syntax_highlight_in_latex.html"><strong aria-hidden="true">19.</strong> Syntax Highlighting Lean in LaTeX</a></li><li class="chapter-item expanded affix "><li class="part-title">Development</li><li class="chapter-item expanded "><a href="dev/index.html"><strong aria-hidden="true">20.</strong> Development Guide</a></li><li class="chapter-item expanded "><a href="dev/commit_convention.html"><strong aria-hidden="true">21.</strong> Commit Convention</a></li><li class="chapter-item expanded "><a href="make/index.html"><strong aria-hidden="true">22.</strong> Building Lean</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="make/ubuntu-16.04.html"><strong aria-hidden="true">22.1.</strong> Ubuntu Setup</a></li><li class="chapter-item expanded "><a href="make/osx-10.9.html"><strong aria-hidden="true">22.2.</strong> macOS Setup</a></li><li class="chapter-item expanded "><a href="make/msys2.html"><strong aria-hidden="true">22.3.</strong> Windows MSYS2 Setup</a></li><li class="chapter-item expanded "><a href="make/wsl.html"><strong aria-hidden="true">22.4.</strong> Windows with WSL</a></li><li class="chapter-item expanded "><a href="make/nix.html"><strong aria-hidden="true">22.5.</strong> Nix Setup (Experimental)</a></li></ol></li><li class="chapter-item expanded "><a href="dev/testing.html"><strong aria-hidden="true">23.</strong> Unit Testing</a></li><li class="chapter-item expanded "><a href="dev/mdbook.html"><strong aria-hidden="true">24.</strong> Building This Manual</a></li><li class="chapter-item expanded "><a href="dev/fixing_tests.html"><strong aria-hidden="true">25.</strong> Fixing Tests</a></li><li class="chapter-item expanded "><a href="dev/debugging.html"><strong aria-hidden="true">26.</strong> Debugging</a></li><li class="chapter-item expanded "><a href="dev/cpp_coding_style.html"><strong aria-hidden="true">27.</strong> C++ Coding Style</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Lean Manual</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/leanprover/lean4" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#declarations" id="declarations">Declarations</a></h1>
+<p>-- TODO (fix)</p>
+<h1><a class="header" href="#declaration-names" id="declaration-names">Declaration Names</a></h1>
+<p>A declaration name is a :ref:<code>hierarchical identifier &lt;identifiers&gt;</code> that is interpreted relative to the current namespace as well as (during lookup) to the set of open namespaces.</p>
+<p>.. code-block:: lean</p>
+<p>namespace a
+constant b.c : Nat
+#print b.c -- constant a.b.c : Nat
+end a</p>
+<p>#print a.b.c -- constant a.b.c : Nat
+open a
+#print b.c -- constant a.b.c : Nat</p>
+<p>Declaration names starting with an underscore are reserved for internal use. Names starting with the special atomic name <code>_root_</code> are interpreted as absolute names.</p>
+<p>.. code-block:: lean</p>
+<p>constant a : Nat
+namespace a
+constant a : Int
+#print <em>root</em>.a -- constant a : Nat
+#print a.a      -- constant a.a : Int
+end a</p>
+<h1><a class="header" href="#contexts-and-telescopes" id="contexts-and-telescopes">Contexts and Telescopes</a></h1>
+<p>When processing user input, Lean first parses text to a raw expression format. It then uses background information and type constants to disambiguate overloaded symbols and infer implicit arguments, resulting in a fully-formed expression. This process is known as <em>elaboration</em>.</p>
+<p>As hinted in :numref:<code>expression_syntax</code>, expressions are parsed and
+elaborated with respect to an <em>environment</em> and a <em>local
+context</em>. Roughly speaking, an environment represents the state of
+Lean at the point where an expression is parsed, including previously
+declared axioms, constants, definitions, and theorems. In a given
+environment, a <em>local context</em> consists of a sequence <code>(a₁ : α₁) (a₂ : α₂) ... (aₙ : αₙ)</code> where each <code>aᵢ</code> is a name denoting a local
+constant and each <code>αᵢ</code> is an expression of type <code>Sort u</code> for some
+<code>u</code> which can involve elements of the environment and the local
+constants <code>aⱼ</code> for <code>j &lt; i</code>.</p>
+<p>Intuitively, a local context is a list of variables that are held constant while an expression is being elaborated. Consider the following</p>
+<pre><code class="language-lean">def f (a b : Nat) : Nat → Nat := fun c =&gt; a + (b + c)
+</code></pre>
+<p>Here the expression <code>fun c =&gt; a + (b + c)</code> is elaborated in the context <code>(a : Nat) (b : Nat)</code> and the expression <code>a + (b + c)</code> is elaborated in the context <code>(a : Nat) (b : Nat) (c : Nat)</code>. If you replace the expression <code>a + (b + c)</code> with an underscore, the error message from Lean will include the current <em>goal</em>:</p>
+<p>.. code-block:: text</p>
+<p>a b c : Nat
+⊢ Nat</p>
+<p>Here <code>a b c : Nat</code> indicates the local context, and the second <code>Nat</code> indicates the expected type of the result.</p>
+<p>A <em>context</em> is sometimes called a <em>telescope</em>, but the latter is used more generally to include a sequence of declarations occuring relative to a given context. For example, relative to the context <code>(a₁ : α₁) (a₂ : α₂) ... (aₙ : αₙ)</code>, the types <code>βᵢ</code> in a telescope <code>(b₁ : β₁) (b₂ : β₂) ... (bₙ : βₙ)</code> can refer to <code>a₁, ..., aₙ</code>. Thus a context can be viewed as a telescope relative to the empty context.</p>
+<p>Telescopes are often used to describe a list of arguments, or parameters, to a declaration. In such cases, it is often notationally convenient to let <code>(a : α)</code> stand for a telescope rather than just a single argument. In general, the annotations described in :ref:<code>implicit_arguments</code> can be used to mark arguments as implicit.</p>
+<p>.. _basic_declarations:</p>
+<h1><a class="header" href="#basic-declarations" id="basic-declarations">Basic Declarations</a></h1>
+<p>Lean provides ways of adding new objects to the environment. The following provide straightforward ways of declaring new objects:</p>
+<ul>
+<li><code>axiom c : α</code> :  declare a constant named <code>c</code> of type <code>α</code>, it is postulating that <code>α</code> is not an empty type.</li>
+<li><code>def c : α := v</code> : defines <code>c</code> to denote <code>v</code>, which should have type <code>α</code>.</li>
+<li><code>theorem c : p := v</code> : similar to <code>def</code>, but intended to be used when <code>p</code> is a proposition.</li>
+<li><code>constant c : α (:= v)?</code> : declares a opaque constant named <code>c</code> of type <code>α</code>, the optional value <code>v</code> is must have type <code>α</code>
+and can be viewed as a certificate that <code>α</code> is not an empty type. If the value is not provided, Lean tries to find one
+using a proceture based on type class resolution. The value <code>v</code> is hidden from the type checker. You can assume that
+Lean &quot;forgets&quot; <code>v</code> after type checking this kind of declaration.</li>
+</ul>
+<p>It is sometimes useful to be able to simulate a definition or theorem without naming it or adding it to the environment.</p>
+<ul>
+<li><code>example : α := t</code> : elaborates <code>t</code> and checks that it has sort <code>α</code> (often a proposition), without adding it to the environment.</li>
+</ul>
+<p>In <code>def</code>, the type (<code>α</code> or <code>p</code>, respectively) can be omitted when it can be inferred by Lean. Constants declared with <code>theorem</code> are marked as <code>irreducible</code>.</p>
+<p>Any of <code>def</code>, <code>theorem</code>, <code>axiom</code>, or <code>example</code> can take a list of arguments (that is, a context) before the colon. If <code>(a : α)</code> is a context, the definition <code>def foo (a : α) : β := t</code>
+is interpreted as <code>def foo : (a : α) → β := fun a : α =&gt; t</code>. Similarly, a theorem <code>theorem foo (a : α) : p := t</code> is interpreted as <code>theorem foo : ∀ a : α, p := fun a : α =&gt; t</code>.</p>
+<pre><code class="language-lean">constant c : Nat
+constant d : Nat
+axiom cd_eq : c = d
+
+def foo : Nat := 5
+def bar := 6
+def baz (x y : Nat) (s : List Nat) := [x, y] ++ s
+
+theorem foo_eq_five : foo = 5 := rfl
+theorem baz_theorem (x y : Nat) : baz x y [] = [x, y] := rfl
+
+example (x y : Nat) : baz x y [] = [x, y] := rfl
+</code></pre>
+<h1><a class="header" href="#inductive-types" id="inductive-types">Inductive Types</a></h1>
+<p>Lean's axiomatic foundation allows users to declare arbitrary
+inductive families, following the pattern described by [Dybjer]_. To
+make the presentation more manageable, we first describe inductive
+<em>types</em>, and then describe the generalization to inductive <em>families</em>
+in the next section. The declaration of an inductive type has the
+following form:</p>
+<pre><code>inductive Foo (a : α) where
+  | constructor₁ : (b : β₁) → Foo a
+  | constructor₂ : (b : β₂) → Foo a
+  ...
+  | constructorₙ : (b : βₙ) → Foo a
+</code></pre>
+<p>Here <code>(a : α)</code> is a context and each <code>(b : βᵢ)</code> is a telescope in the context <code>(a : α)</code> together with <code>Foo</code>, subject to the following constraints.</p>
+<p>Suppose the telescope <code>(b : βᵢ)</code> is <code>(b₁ : βᵢ₁) ... (bᵤ : βᵢᵤ)</code>. Each argument in the telescope is either <em>nonrecursive</em> or <em>recursive</em>.</p>
+<ul>
+<li>
+<p>An argument <code>(bⱼ : βᵢⱼ)</code> is <em>nonrecursive</em> if <code>βᵢⱼ</code> does not refer to <code>foo,</code> the inductive type being defined. In that case, <code>βᵢⱼ</code> can be any type, so long as it does not refer to any nonrecursive arguments.</p>
+</li>
+<li>
+<p>An argument <code>(bⱼ : βᵢⱼ)</code> is <em>recursive</em> if it <code>βᵢⱼ</code> of the form <code>Π (d : δ), foo</code> where <code>(d : δ)</code> is a telescope which does not refer to <code>foo</code> or any nonrecursive arguments.</p>
+</li>
+</ul>
+<p>The inductive type <code>foo</code> represents a type that is freely generated by the constructors. Each constructor can take arbitrary data and facts as arguments (the nonrecursive arguments), as well as indexed sequences of elements of <code>foo</code> that have been previously constructed (the recursive arguments). In set theoretic models, such sets can be represented by well-founded trees labeled by the constructor data, or they can defined using other transfinite or impredicative means.</p>
+<p>The declaration of the type <code>foo</code> as above results in the addition of the following constants to the environment:</p>
+<ul>
+<li>
+<p>the <em>type former</em> <code>foo : Π (a : α), Sort u</code></p>
+</li>
+<li>
+<p>for each <code>i</code>, the <em>constructor</em> <code>foo.constructorᵢ : Π (a : α) (b : βᵢ), foo a</code></p>
+</li>
+<li>
+<p>the <em>eliminator</em> <code>foo.rec</code>, which takes arguments</p>
+<ul>
+<li><code>(a : α)</code> (the parameters)</li>
+<li><code>{C : foo a → Type u}</code> (the <em>motive</em> of the elimination)</li>
+<li>for each <code>i</code>, the <em>minor premise</em> corresponding to <code>constructorᵢ</code></li>
+<li><code>(x : foo)</code> (the <em>major premise</em>)</li>
+</ul>
+<p>and returns an element of <code>C x</code>. Here, The ith minor premise is a function which takes</p>
+<ul>
+<li><code>(b : βᵢ)</code> (the arguments to the constructor)</li>
+<li>an argument of type <code>Π (d : δ), C (bⱼ d)</code> corresponding to each recursive argument <code>(bⱼ : βᵢⱼ)</code>, where <code>βᵢⱼ</code>  is of the form <code>Π (d : δ), foo</code> (the recursive values of the function being defined)</li>
+</ul>
+<p>and returns an element of <code>C (constructorᵢ a b)</code>, the intended value of the function at <code>constructorᵢ a b</code>.</p>
+</li>
+</ul>
+<p>The eliminator represents a principle of recursion: to construct an element of <code>C x</code> where <code>x : foo a</code>, it suffices to consider each of the cases where <code>x</code> is of the form <code>constructorᵢ a b</code> and to provide an auxiliary construction in each case. In the case where some of the arguments to <code>constructorᵢ</code> are recursive, we can assume that we have already constructed values of <code>C y</code> for each value <code>y</code> constructed at an earlier stage.</p>
+<p>Under the propositions-as-type correspondence, when <code>C x</code> is an element of <code>Prop</code>, the eliminator represents a principle of induction. In order to show <code>∀ x, C x</code>, it suffices to show that <code>C</code> holds for each constructor, under the inductive hypothesis that it holds for all recursive inputs to the constructor.</p>
+<p>The eliminator and constructors satisfy the following identities, in which all the arguments are shown explicitly. Suppose we set <code>F := foo.rec a C f₁ ... fₙ</code>. Then for each constructor, we have the definitional reduction:</p>
+<p>.. code-block :: text</p>
+<p>F (constructorᵢ a b) = fᵢ b ... (fun d : δᵢⱼ =&gt; F (bⱼ d)) ...</p>
+<p>where the ellipses include one entry for each recursive argument.</p>
+<p>Below are some common examples of inductive types, many of which are defined in the core library.</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+universes u v</p>
+<p>-- BEGIN
+inductive empty : Type</p>
+<p>inductive unit : Type
+| star : unit</p>
+<p>inductive bool : Type
+| ff : bool
+| tt : bool</p>
+<p>inductive prod (α : Type u) (β : Type v) : Type (max u v)
+| mk : α → β → prod</p>
+<p>inductive sum (α : Type u) (β : Type v)
+| inl : α → sum
+| inr : β → sum</p>
+<p>inductive sigma (α : Type u) (β : α → Type v)
+| mk : Π a : α, β a → sigma</p>
+<p>inductive false : Prop</p>
+<p>inductive true : Prop
+| trivial : true</p>
+<p>inductive and (p q : Prop) : Prop
+| intro : p → q → and</p>
+<p>inductive or (p q : Prop) : Prop
+| inl : p → or
+| inr : q → or</p>
+<p>inductive Exists (α : Type u) (p : α → Prop) : Prop
+| intro : ∀ x : α, p x → Exists</p>
+<p>inductive subtype (α : Type u) (p : α → Prop) : Type u
+| intro : ∀ x : α, p x → subtype</p>
+<p>inductive nat : Type
+| zero : nat
+| succ : nat → nat</p>
+<p>inductive list (α : Type u)
+| nil : list
+| cons : α → list → list</p>
+<p>-- full binary tree with nodes and leaves labeled from α
+inductive bintree (α : Type u)
+| leaf : α → bintree
+| node : bintree → α → bintree → bintree</p>
+<p>-- every internal node has subtrees indexed by Nat
+inductive cbt (α : Type u)
+| leaf : α → cbt
+| node : (Nat → cbt) → cbt
+-- END
+end hide</p>
+<p>Note that in the syntax of the inductive definition <code>foo</code>, the context <code>(a : α)</code> is left implicit. In other words, constructors and recursive arguments are written as though they have return type <code>foo</code> rather than <code>foo a</code>.</p>
+<p>Elements of the context <code>(a : α)</code> can be marked implicit as described in :numref:<code>implicit_arguments</code>. These annotations bear only on the type former, <code>foo</code>. Lean uses a heuristic to determine which arguments to the constructors should be marked implicit, namely, an argument is marked implicit if it can be inferred from the type of a subsequent argument. If the annotation <code>{}</code> appears after the constructor, a argument is marked implicit if it can be inferred from the type of a subsequent argument <em>or the return type</em>. For example, it is useful to let <code>nil</code> denote the empty list of any type, since the type can usually be inferred in the context in which it appears. These heuristics are imperfect, and you may sometimes wish to define your own constructors in terms of the default ones. In that case, use the <code>[pattern]</code> :ref:<code>attribute &lt;attributes&gt;</code> to ensure that these will be used appropriately by the :ref:<code>equation compiler &lt;the_equation_compiler&gt;</code>.</p>
+<p>There are restrictions on the universe <code>u</code> in the return type <code>Sort u</code> of the type former. There are also restrictions on the universe <code>u</code> in the return type <code>Sort u</code> of the motive of the eliminator. These will be discussed in the next section in the more general setting of inductive families.</p>
+<p>Lean allows some additional syntactic conveniences. You can omit the return type of the type former, <code>Sort u</code>, in which case Lean will infer the minimal possible nonzero value for <code>u</code>. As with function definitions, you can list arguments to the constructors before the colon. In an enumerated type (that is, one where the constructors have no arguments), you can also leave out the return type of the constructors.</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+universe u</p>
+<p>-- BEGIN
+inductive weekday
+| sunday | monday | tuesday | wednesday
+| thursday | friday | saturday</p>
+<p>inductive nat
+| zero
+| succ (n : nat) : nat</p>
+<p>inductive list (α : Type u)
+| nil {} : list
+| cons (a : α) (l : list) : list</p>
+<p>@[pattern]
+def list.nil' (α : Type u) : list α := list.nil</p>
+<p>def length {α : Type u} : list α → Nat
+| (list.nil' .(α)) := 0
+| (list.cons a l) := 1 + length l
+-- END</p>
+<p>end hide</p>
+<p>The type former, constructors, and eliminator are all part of Lean's axiomatic foundation, which is to say, they are part of the trusted kernel. In addition to these axiomatically declared constants, Lean automatically defines some additional objects in terms of these, and adds them to the environment. These include the following:</p>
+<ul>
+<li><code>foo.rec_on</code> : a variant of the eliminator, in which the major premise comes first</li>
+<li><code>foo.cases_on</code> : a restricted version of the eliminator which omits any recursive calls</li>
+<li><code>foo.no_confusion_type</code>, <code>foo.no_confusion</code> : functions which witness the fact that the inductive type is freely generated, i.e. that the constructors are injective and that distinct constructors produce distinct objects</li>
+<li><code>foo.below</code>, <code>foo.ibelow</code> : functions used by the equation compiler to implement structural recursion</li>
+<li><code>foo.sizeof</code> : a measure which can be used for well-founded recursion</li>
+</ul>
+<p>Note that it is common to put definitions and theorems related to a datatype <code>foo</code> in a namespace of the same name. This makes it possible to use projection notation described in :numref:<code>structures_and_records</code> and :numref:<code>namespaces</code>.</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+universe u</p>
+<p>-- BEGIN
+inductive nat
+| zero
+| succ (n : nat) : nat</p>
+<p>#check nat
+#check nat.rec
+#check nat.zero
+#check nat.succ</p>
+<p>#check nat.rec_on
+#check nat.cases_on
+#check nat.no_confusion_type
+#check @nat.no_confusion
+#check nat.brec_on
+#check nat.below
+#check nat.ibelow
+#check nat.sizeof</p>
+<p>-- END</p>
+<p>end hide</p>
+<p>.. _inductive_families:</p>
+<h1><a class="header" href="#inductive-families" id="inductive-families">Inductive Families</a></h1>
+<p>In fact, Lean implements a slight generalization of the inductive types described in the previous section, namely, inductive <em>families</em>. The declaration of an inductive family in Lean has the following form:</p>
+<p>.. code-block:: text</p>
+<p>inductive foo (a : α) : Π (c : γ), Sort u
+| constructor₁ : Π (b : β₁), foo t₁
+| constructor₂ : Π (b : β₂), foo t₂
+...
+| constructorₙ : Π (b : βₙ), foo tₙ</p>
+<p>Here <code>(a : α)</code> is a context, <code>(c : γ)</code> is a telescope in context <code>(a : α)</code>, each <code>(b : βᵢ)</code> is a telescope in the context <code>(a : α)</code> together with <code>(foo : Π (c : γ), Sort u)</code> subject to the constraints below, and each <code>tᵢ</code> is a tuple of terms in the context <code>(a : α) (b : βᵢ)</code> having the types <code>γ</code>. Instead of defining a single inductive type <code>foo a</code>, we are now defining a family of types <code>foo a c</code> indexed by elements <code>c : γ</code>.  Each constructor, <code>constructorᵢ</code>, places its result in the type <code>foo a tᵢ</code>, the member of the family with index <code>tᵢ</code>.</p>
+<p>The modifications to the scheme in the previous section are straightforward. Suppose the telescope <code>(b : βᵢ)</code> is <code>(b₁ : βᵢ₁) ... (bᵤ : βᵢᵤ)</code>.</p>
+<ul>
+<li>
+<p>As before, an argument <code>(bⱼ : βᵢⱼ)</code> is <em>nonrecursive</em> if <code>βᵢⱼ</code> does not refer to <code>foo,</code> the inductive type being defined. In that case, <code>βᵢⱼ</code> can be any type, so long as it does not refer to any nonrecursive arguments.</p>
+</li>
+<li>
+<p>An argument <code>(bⱼ : βᵢⱼ)</code> is <em>recursive</em> if <code>βᵢⱼ</code> is of the form <code>Π (d : δ), foo s</code> where <code>(d : δ)</code> is a telescope which does not refer to <code>foo</code> or any nonrecursive arguments and <code>s</code> is a tuple of terms in context <code>(a : α)</code> and the previous nonrecursive <code>bⱼ</code>'s with types <code>γ</code>.</p>
+</li>
+</ul>
+<p>The declaration of the type <code>foo</code> as above results in the addition of the following constants to the environment:</p>
+<ul>
+<li>
+<p>the <em>type former</em> <code>foo : Π (a : α) (c : γ), Sort u</code></p>
+</li>
+<li>
+<p>for each <code>i</code>, the <em>constructor</em> <code>foo.constructorᵢ : Π (a : α) (b : βᵢ), foo a tᵢ</code></p>
+</li>
+<li>
+<p>the <em>eliminator</em> <code>foo.rec</code>, which takes arguments</p>
+<ul>
+<li><code>(a : α)</code> (the parameters)</li>
+<li><code>{C : Π (c : γ), foo a c → Type u}</code> (the motive of the elimination)</li>
+<li>for each <code>i</code>, the minor premise corresponding to <code>constructorᵢ</code></li>
+<li><code>(x : foo a)</code> (the major premise)</li>
+</ul>
+<p>and returns an element of <code>C x</code>. Here, The ith minor premise is a function which takes</p>
+<ul>
+<li><code>(b : βᵢ)</code> (the arguments to the constructor)</li>
+<li>an argument of type <code>Π (d : δ), C s (bⱼ d)</code> corresponding to each recursive argument <code>(bⱼ : βᵢⱼ)</code>, where <code>βᵢⱼ</code>  is of the form <code>Π (d : δ), foo s</code></li>
+</ul>
+<p>and returns an element of <code>C tᵢ (constructorᵢ a b)</code>.</p>
+</li>
+</ul>
+<p>Suppose we set <code>F := foo.rec a C f₁ ... fₙ</code>. Then for each constructor, we have the definitional reduction, as before:</p>
+<p>.. code-block :: text</p>
+<p>F (constructorᵢ a b) = fᵢ b ... (fun d : δᵢⱼ =&gt; F (bⱼ d)) ...</p>
+<p>where the ellipses include one entry for each recursive argument.</p>
+<p>The following are examples of inductive families.</p>
+<p>.. code-block:: lean</p>
+<p>namespace hide
+universe u</p>
+<p>-- BEGIN
+inductive vector (α : Type u) : Nat → Type u
+| nil  : vector 0
+| succ : Π n, vector n → vector (n + 1)</p>
+<p>-- 'is_prod s n' means n is a product of elements of s
+inductive is_prod (s : set Nat) : Nat → Prop
+| base : ∀ n ∈ s, is_prod n
+| step : ∀ m n, is_prod m → is_prod n → is_prod (m * n)</p>
+<p>inductive eq {α : Sort u} (a : α) : α → Prop
+| refl : eq a
+-- END</p>
+<p>end hide</p>
+<p>We can now describe the constraints on the return type of the type former, <code>Sort u</code>. We can always take <code>u</code> to be <code>0</code>, in which case we are defining an inductive family of propositions. If <code>u</code> is nonzero, however, it must satisfy the following constraint: for each type <code>βᵢⱼ : Sort v</code> occurring in the constructors, we must have <code>u ≥ v</code>. In the set-theoretic interpretation, this ensures that the universe in which the resulting type resides is large enough to contain the inductively generated family, given the number of distinctly-labeled constructors. The restriction does not hold for inductively defined propositions, since these contain no data.</p>
+<p>Putting an inductive family in <code>Prop</code>, however, does impose a restriction on the eliminator. Generally speaking, for an inductive family in <code>Prop</code>, the motive in the eliminator is required to be in <code>Prop</code>. But there is an exception to this rule: you are allowed to eliminate from an inductively defined <code>Prop</code> to an arbitrary <code>Sort</code> when there is only one constructor, and each argument to that constructor is either in <code>Prop</code> or an index. The intuition is that in this case the elimination does not make use of any information that is not already given by the mere fact that the type of argument is inhabited. This special case is known as <em>singleton elimination</em>.</p>
+<p>.. _mutual_and_nested_inductive_definitions:</p>
+<h1><a class="header" href="#mutual-and-nested-inductive-definitions" id="mutual-and-nested-inductive-definitions">Mutual and Nested Inductive Definitions</a></h1>
+<p>Lean supports two generalizations of the inductive families described above, namely, <em>mutual</em> and <em>nested</em> inductive definitions. These are <em>not</em> implemented natively in the kernel. Rather, the definitions are compiled down to the primitive inductive types and families.</p>
+<p>The first generalization allows for multiple inductive types to be defined simultaneously.</p>
+<p>.. code-block:: text</p>
+<p>mutual inductive foo, bar (a : α)
+with foo : Π (c : γ), Sort u
+| constructor₁₁ : Π (b : β₁₁), foo t₁₁
+| constructor₁₂ : Π (b : β₁₂), foo t₁₂
+...
+| constructor₁ₙ : Π (b : β₁ₙ), foo t₁ₙ
+with bar :
+| constructor₂₁ : Π (b : β₂₁), bar t₂₁
+| constructor₂₂ : Π (b : β₂₂), bar t₂₂
+...
+| constructor₂ₘ : Π (b : β₂ₘ), bar t₂ₘ</p>
+<p>Here the syntax is shown for defining two inductive families, <code>foo</code> and <code>bar</code>, but any number is allowed. The restrictions are almost the same as for ordinary inductive families. For example, each <code>(b : βᵢⱼ)</code> is a telescope relative to the context <code>(a : α)</code>. The difference is that the constructors can now have recursive arguments whose return types are any of the inductive families currently being defined, in this case <code>foo</code> and <code>bar</code>. Note that all of the inductive definitions share the same parameters <code>(a : α)</code>, though they may have different indices.</p>
+<p>A mutual inductive definition is compiled down to an ordinary inductive definition using an extra finite-valued index to distinguish the components. The details of the internal construction are meant to be hidden from most users. Lean defines the expected type formers <code>foo</code> and <code>bar</code> and constructors <code>constructorᵢⱼ</code> from the internal inductive definition. There is no straightforward elimination principle, however. Instead, Lean defines an appropriate <code>sizeof</code> measure, meant for use with well-founded recursion, with the property that the recursive arguments to a constructor are smaller than the constructed value.</p>
+<p>The second generalization relaxes the restriction that in the recursive definition of <code>foo</code>, <code>foo</code> can only occur strictly positively in the type of any of its recursive arguments. Specifically, in a nested inductive definition, <code>foo</code> can appear as an argument to another inductive type constructor, so long as the corresponding parameter occurs strictly positively in the constructors for <em>that</em> inductive type. This process can be iterated, so that additional type constructors can be applied to those, and so on.</p>
+<p>A nested inductive definition is compiled down to an ordinary inductive definition using a mutual inductive definition to define copies of all the nested types simultaneously. Lean then constructs isomorphisms between the mutually defined nested types and their independently defined counterparts. Once again, the internal details are not meant to be manipulated by users. Rather, the type former and constructors are made available and work as expected, while an appropriate <code>sizeof</code> measure is generated for use with well-founded recursion.</p>
+<p>.. code-block:: lean</p>
+<pre><code>universe u
+-- BEGIN
+mutual inductive even, odd
+with even : Nat → Prop
+| even_zero : even 0
+| even_succ : ∀ n, odd n → even (n + 1)
+with odd : Nat → Prop
+| odd_succ : ∀ n, even n → odd (n + 1)
+
+inductive tree (α : Type u)
+| mk : α → list tree → tree
+
+inductive double_tree (α : Type u)
+| mk : α → list double_tree × list double_tree → double_tree
+-- END
+</code></pre>
+<p>.. _the_equation_compiler:</p>
+<h1><a class="header" href="#the-equation-compiler" id="the-equation-compiler">The Equation Compiler</a></h1>
+<p>The equation compiler takes an equational description of a function or proof and tries to define an object meeting that specification. It expects input with the following syntax:</p>
+<p>.. code-block:: text</p>
+<pre><code>def foo (a : α) : Π (b : β), γ
+| [patterns₁] := t₁
+...
+| [patternsₙ] := tₙ
+</code></pre>
+<p>Here <code>(a : α)</code> is a telescope, <code>(b : β)</code> is a telescope in the context <code>(a : α)</code>, and <code>γ</code> is an expression in the context <code>(a : α) (b : β)</code> denoting a <code>Type</code> or a <code>Prop</code>.</p>
+<p>Each <code>patternsᵢ</code> is a sequence of patterns of the same length as <code>(b : β)</code>. A pattern is either:</p>
+<ul>
+<li>a variable, denoting an arbitrary value of the relevant type,</li>
+<li>an underscore, denoting a <em>wildcard</em> or <em>anonymous variable</em>,</li>
+<li>an inaccessible term (see below), or</li>
+<li>a constructor for the inductive type of the corresponding argument, applied to a sequence of patterns.</li>
+</ul>
+<p>In the last case, the pattern must be enclosed in parentheses.</p>
+<p>Each term <code>tᵢ</code> is an expression in the context <code>(a : α)</code> together with the variables introduced on the left-hand side of the token <code>:=</code>. The term <code>tᵢ</code> can also include recursive calls to <code>foo</code>, as described below. The equation compiler does case splitting on the variables <code>(b : β)</code> as necessary to match the patterns, and defines <code>foo</code> so that it has the value <code>tᵢ</code> in each of the cases. In ideal circumstances (see below), the equations hold definitionally. Whether they hold definitionally or only propositionally, the equation compiler proves the relevant equations and assigns them internal names. They are accessible by the <code>rewrite</code> and <code>simp</code> tactics under the name <code>foo</code> (see :numref:<code>the_rewriter</code> and :numref:<code>the_simplifier</code>). If some of the patterns overlap, the equation compiler interprets the definition so that the first matching pattern applies in each case. Thus, if the last pattern is a variable, it covers all the remaining cases. If the patterns that are presented do not cover all possible cases, the equation compiler raises an error.</p>
+<p>When identifiers are marked with the <code>[pattern]</code> attribute, the equation compiler unfolds them in the hopes of exposing a constructor. For example, this makes it possible to write <code>n+1</code> and <code>0</code> instead of <code>nat.succ n</code> and <code>nat.zero</code> in patterns.</p>
+<p>For a nonrecursive definition involving case splits, the defining equations will hold definitionally. With inductive types like <code>char</code>, <code>string</code>, and <code>fin n</code>, a case split would produce definitions with an inordinate number of cases. To avoid this, the equation compiler uses <code>if ... then ... else</code> instead of <code>cases_on</code> when defining the function. In this case, the defining equations hold definitionally as well.</p>
+<p>.. code-block:: lean</p>
+<pre><code>open nat
+
+def sub2 : Nat → Nat
+| zero            := 0
+| (succ zero)     := 0
+| (succ (succ a)) := a
+
+def bar : Nat → list Nat → bool → Nat
+| 0     _        ff := 0
+| 0     (b :: _) _  := b
+| 0     []       tt := 7
+| (a+1) []       ff := a
+| (a+1) []       tt := a + 1
+| (a+1) (b :: _) _  := a + b
+
+def baz : char → Nat
+| 'A' := 1
+| 'B' := 2
+| _   := 3
+</code></pre>
+<p>If any of the terms <code>tᵢ</code> in the template above contain a recursive call to <code>foo</code>, the equation compiler tries to interpret the definition as a structural recursion. In order for that to succeed, the recursive arguments must be subterms of the corresponding arguments on the left-hand side. The function is then defined using a <em>course of values</em> recursion, using automatically generated functions <code>below</code> and <code>brec</code> in the namespace corresponding to the inductive type of the recursive argument. In this case the defining equations hold definitionally, possibly with additional case splits.</p>
+<p>.. code-block:: lean</p>
+<pre><code>namespace hide
+
+-- BEGIN
+def fib : nat → nat
+| 0     := 1
+| 1     := 1
+| (n+2) := fib (n+1) + fib n
+
+def append {α : Type} : list α → list α → list α
+| []     l := l
+| (h::t) l := h :: append t l
+
+example : append [(1 : Nat), 2, 3] [4, 5] = [1, 2, 3, 4, 5] := rfl
+-- END
+
+end hide
+</code></pre>
+<p>If structural recursion fails, the equation compiler falls back on well-founded recursion. It tries to infer an instance of <code>has_sizeof</code> for the type of each argument, and then show that each recursive call is decreasing under the lexicographic order of the arguments with respect to <code>sizeof</code> measure. If it fails, the error message provides information as to the goal that Lean tried to prove. Lean uses information in the local context, so you can often provide the relevant proof manually using <code>have</code> in the body of the definition. In this case of well-founded recursion, the defining equations hold only propositionally, and can be accessed using <code>simp</code> and <code>rewrite</code> with the name <code>foo</code>.</p>
+<p>.. code-block:: lean</p>
+<pre><code>namespace hide
+open nat
+
+-- BEGIN
+def div : Nat → Nat → Nat
+| x y :=
+  if h : 0 &lt; y ∧ y ≤ x then
+    have x - y &lt; x,
+      from sub_lt (lt_of_lt_of_le h.left h.right) h.left,
+    div (x - y) y + 1
+  else
+    0
+
+example (x y : Nat) :
+  div x y = if 0 &lt; y ∧ y ≤ x then div (x - y) y + 1 else 0 :=
+by rw [div]
+-- END
+
+end hide
+</code></pre>
+<p>Note that recursive definitions can in general require nested recursions, that is, recursion on different arguments of <code>foo</code> in the template above. The equation compiler handles this by abstracting later arguments, and recursively defining higher-order functions to meet the specification.</p>
+<p>The equation compiler also allows mutual recursive definitions, with a syntax similar to that of :ref:<code>mutual inductive definitions &lt;mutual_and_nested_inductive_definitions&gt;</code>. They are compiled using well-founded recursion, and so once again the defining equations hold only propositionally.</p>
+<p>.. code-block:: lean</p>
+<pre><code>mutual def even, odd
+with even : Nat → bool
+| 0     := tt
+| (a+1) := odd a
+with odd : Nat → bool
+| 0     := ff
+| (a+1) := even a
+
+example (a : Nat) : even (a + 1) = odd a :=
+by simp [even]
+
+example (a : Nat) : odd (a + 1) = even a :=
+by simp [odd]
+</code></pre>
+<p>Well-founded recursion is especially useful with :ref:<code>mutual and nested inductive definitions &lt;mutual_and_nested_inductive_definitions&gt;</code>, since it provides the canonical way of defining functions on these types.</p>
+<p>.. code-block:: lean</p>
+<pre><code>mutual inductive even, odd
+with even : Nat → Prop
+| even_zero : even 0
+| even_succ : ∀ n, odd n → even (n + 1)
+with odd : Nat → Prop
+| odd_succ : ∀ n, even n → odd (n + 1)
+
+open even odd
+
+theorem not_odd_zero : ¬ odd 0.
+
+mutual theorem even_of_odd_succ, odd_of_even_succ
+with even_of_odd_succ : ∀ n, odd (n + 1) → even n
+| _ (odd_succ n h) := h
+with odd_of_even_succ : ∀ n, even (n + 1) → odd n
+| _ (even_succ n h) := h
+
+inductive term
+| const : string → term
+| app   : string → list term → term
+
+open term
+
+mutual def num_consts, num_consts_lst
+with num_consts : term → nat
+| (term.const n)  := 1
+| (term.app n ts) := num_consts_lst ts
+with num_consts_lst : list term → nat
+| []      := 0
+| (t::ts) := num_consts t + num_consts_lst ts
+</code></pre>
+<p>The case where patterns are matched against an argument whose type is an inductive family is known as <em>dependent pattern matching</em>. This is more complicated, because the type of the function being defined can impose constraints on the patterns that are matched. In this case, the equation compiler will detect inconsistent cases and rule them out.</p>
+<p>.. code-block:: lean</p>
+<pre><code>universe u
+
+inductive vector (α : Type u) : Nat → Type u
+| nil {} : vector 0
+| cons   : Π {n}, α → vector n → vector (n+1)
+
+namespace vector
+
+def head {α : Type} : Π {n}, vector α (n+1) → α
+| n (cons h t) := h
+
+def tail {α : Type} : Π {n}, vector α (n+1) → vector α n
+| n (cons h t) := t
+
+def map {α β γ : Type} (f : α → β → γ) :
+  Π {n}, vector α n → vector β n → vector γ n
+| 0     nil         nil         := nil
+| (n+1) (cons a va) (cons b vb) := cons (f a b) (map va vb)
+
+end vector
+</code></pre>
+<p>An expression of the form <code>.(t)</code> in a pattern is known as an <em>inaccessible term</em>. It is not viewed as part of the pattern; rather, it is explicit information that is used by the elaborator and equation compiler when interpreting the definition. Inaccessible terms do not participate in pattern matching. They are sometimes needed for a pattern to make sense, for example, when a constructor depends on a parameter that is not a pattern-matching variable. In other cases, they can be used to inform the equation compiler that certain arguments do not require a case split, and they can be used to make a definition more readable.</p>
+<p>.. code-block:: lean</p>
+<pre><code>universe u
+
+inductive vector (α : Type u) : Nat → Type u
+| nil {} : vector 0
+| cons   : Π {n}, α → vector n → vector (n+1)
+
+namespace vector
+
+-- BEGIN
+variable {α : Type u}
+
+def add [has_add α] :
+  Π {n : Nat}, vector α n → vector α n → vector α n
+| ._ nil        nil        := nil
+| ._ (cons a v) (cons b w) := cons (a + b) (add v w)
+
+def add' [has_add α] :
+  Π {n : Nat}, vector α n → vector α n → vector α n
+| .(0)   nil                nil        := nil
+| .(n+1) (@cons .(α) n a v) (cons b w) := cons (a + b) (add' v w)
+-- END
+
+end vector
+</code></pre>
+<p>.. _match_expressions:</p>
+<h1><a class="header" href="#match-expressions" id="match-expressions">Match Expressions</a></h1>
+<p>Lean supports a <code>match ... with ...</code> construct similar to ones found in most functional programming languages. The syntax is as follows:</p>
+<p>.. code-block:: text</p>
+<pre><code>match t₁, ..., tₙ with
+| p₁₁, ..., p₁ₙ := s₁
+...
+| pₘ₁, ..., pₘₙ := sₘ
+</code></pre>
+<p>Here <code>t₁, ..., tₙ</code> are any terms in the context in which the expression appears, the expressions <code>pᵢⱼ</code> are patterns, and the terms <code>sᵢ</code> are expressions in the local context together with variables introduced by the patterns on the left-hand side. Each <code>sᵢ</code> should have the expected type of the entire <code>match</code> expression.</p>
+<p>Any <code>match</code> expression is interpreted using the equation compiler, which generalizes <code>t₁, ..., tₙ</code>, defines an internal function meeting the specification, and then applies it to <code>t₁, ..., tₙ</code>. In contrast to the definitions in :numref:<code>the_equation_compiler</code>, the terms <code>tᵢ</code> are arbitrary terms rather than just variables, and the expression can occur anywhere within a Lean expression, not just at the top level of a definition. Note that the syntax here is somewhat different: both the terms <code>tᵢ</code> and the patterns <code>pᵢⱼ</code> are separated by commas.</p>
+<p>.. code-block:: lean</p>
+<pre><code>def foo (n : Nat) (b c : bool) :=
+5 + match n - 5, b &amp;&amp; c with
+    | 0,      tt := 0
+    | m+1,    tt := m + 7
+    | 0,      ff := 5
+    | m+1,    ff := m + 3
+    end
+</code></pre>
+<p>When a <code>match</code> has only one line, the vertical bar may be left out. In that case, Lean provides alternative syntax with a destructuring <code>let</code>, as well as a destructuring lambda abstraction. Thus the following definitions all have the same net effect.</p>
+<p>.. code-block:: lean</p>
+<pre><code>def bar₁ : Nat × Nat → Nat
+| (m, n) := m + n
+
+def bar₂ (p : Nat × Nat) : Nat :=
+match p with (m, n) := m + n end
+
+def bar₃ : Nat × Nat → Nat :=
+fun ⟨m, n⟩ =&gt; m + n
+
+def bar₄ (p : Nat × Nat) : Nat :=
+let ⟨m, n⟩ := p in m + n
+</code></pre>
+<p>.. _structures_and_records:</p>
+<h1><a class="header" href="#structures-and-records" id="structures-and-records">Structures and Records</a></h1>
+<p>The <code>structure</code> command in Lean is used to define an inductive data type with a single constructor and to define its projections at the same time. The syntax is as follows:</p>
+<p>.. code-block:: text</p>
+<pre><code>structure foo (a : α) extends bar, baz : Sort u :=
+constructor :: (field₁ : β₁) ... (fieldₙ : βₙ)
+</code></pre>
+<p>Here <code>(a : α)</code> is a telescope, that is, the parameters to the inductive definition. The name <code>constructor</code> followed by the double colon is optional; if it is not present, the name <code>mk</code> is used by default. The keyword <code>extends</code> followed by a list of previously defined structures is also optional; if it is present, an instance of each of these structures is included among the fields to <code>foo,</code> and the types <code>βᵢ</code> can refer to their fields as well. The output type, <code>Sort u</code>, can be omitted, in which case Lean infers to smallest non-<code>Prop</code> sort possible. Finally, <code>(field₁ : β₁) ... (fieldₙ : βₙ)</code> is a telescope relative to <code>(a : α)</code> and the fields in <code>bar</code> and <code>baz</code>.</p>
+<p>The declaration above is syntactic sugar for an inductive type declaration, and so results in the addition of the following constants to the environment:</p>
+<ul>
+<li>
+<p>the type former : <code>foo : Π (a : α), Sort u</code></p>
+</li>
+<li>
+<p>the single constructor :</p>
+<p>.. code-block:: text</p>
+<p>foo.constructor : Π (a : α) (_to_foo : foo) (_to_bar : bar)
+(field₁ : β₁) ... (fieldₙ : βₙ), foo a</p>
+</li>
+<li>
+<p>the eliminator <code>foo.rec</code> for the inductive type with that constructor</p>
+</li>
+</ul>
+<p>In addition, Lean defines</p>
+<ul>
+<li>the projections : <code>fieldᵢ : Π (a : α) (c : foo) : βᵢ</code> for each <code>i</code></li>
+</ul>
+<p>where any other fields mentioned in <code>βᵢ</code> are replaced by the relevant projections from <code>c</code>.</p>
+<p>Given <code>c : foo</code>, Lean offers the following convenient syntax for the projection <code>foo.fieldᵢ c</code>:</p>
+<ul>
+<li><em>anonymous projections</em> : <code>c.fieldᵢ</code></li>
+<li><em>numbered projections</em> : <code>c.i</code></li>
+</ul>
+<p>These can be used in any situation where Lean can infer that the type of <code>c</code> is of the form <code>foo a</code>. The convention for anonymous projections is extended to any function <code>f</code> defined in the namespace <code>foo</code>, as described in :numref:<code>namespaces</code>.</p>
+<p>Similarly, Lean offers the following convenient syntax for constructing elements of <code>foo</code>. They are equivalent to <code>foo.constructor b₁ b₂ f₁ f₁ ... fₙ</code>, where <code>b₁ : foo</code>, <code>b₂ : bar</code>, and each <code>fᵢ : βᵢ</code> :</p>
+<ul>
+<li>
+<p><em>anonymous constructor</em>: <code>⟨ b₁, b₂, f₁, ..., fₙ ⟩</code></p>
+</li>
+<li>
+<p><em>record notation</em>:</p>
+<p>.. code-block:: text</p>
+<p>{ foo . to_bar := b₁, to_baz := b₂, field₁ := f₁, ...,
+fieldₙ := fₙ }</p>
+</li>
+</ul>
+<p>The anonymous constructor can be used in any context where Lean can infer that the expression should have a type of the form <code>foo a</code>. The unicode brackets are entered as <code>\&lt;</code> and <code>\&gt;</code> respectively. The tokens <code>(|</code> and <code>|)</code> are ascii equivalents.</p>
+<p>When using record notation, you can omit the annotation <code>foo .</code> when Lean can infer that the expression should have a type of the form <code>foo a</code>. You can replace either <code>to_bar</code> or <code>to_baz</code> by assignments to <em>their</em> fields as well, essentially acting as though the fields of <code>bar</code> and <code>baz</code> are simply imported into <code>foo</code>. Finally, record notation also supports</p>
+<ul>
+<li><em>record updates</em>: <code>{ t with ... fieldᵢ := fᵢ ...}</code></li>
+</ul>
+<p>Here <code>t</code> is a term of type <code>foo a</code> for some <code>a</code>. The notation instructs Lean to take values from <code>t</code> for any field assignment that is omitted from the list.</p>
+<p>Lean also allows you to specify a default value for any field in a structure by writing <code>(fieldᵢ : βᵢ := t)</code>. Here <code>t</code> specifies the value to use when the field <code>fieldᵢ</code> is left unspecified in an instance of record notation.</p>
+<p>.. code-block:: lean</p>
+<pre><code>universes u v
+
+structure vec (α : Type u) (n : Nat) :=
+(l : list α) (h : l.length = n)
+
+structure foo (α : Type u) (β : Nat → Type v) : Type (max u v) :=
+(a : α) (n : Nat) (b : β n)
+
+structure bar :=
+(c : Nat := 8) (d : Nat)
+
+structure baz extends foo Nat (vec Nat), bar :=
+(v : vec Nat n)
+
+#check foo
+#check @foo.mk
+#check @foo.rec
+
+#check foo.a
+#check foo.n
+#check foo.b
+
+#check baz
+#check @baz.mk
+#check @baz.rec
+
+#check baz.to_foo
+#check baz.to_bar
+#check baz.v
+
+def bzz := vec.mk [1, 2, 3] rfl
+
+#check vec.l bzz
+#check vec.h bzz
+#check bzz.l
+#check bzz.h
+#check bzz.1
+#check bzz.2
+
+example : vec Nat 3 := vec.mk [1, 2, 3] rfl
+example : vec Nat 3 := ⟨[1, 2, 3], rfl⟩
+example : vec Nat 3 := (| [1, 2, 3], rfl |)
+example : vec Nat 3 := { vec . l := [1, 2, 3], h := rfl }
+example : vec Nat 3 := { l := [1, 2, 3], h := rfl }
+
+example : foo Nat (vec Nat) := ⟨1, 3, bzz⟩
+
+example : baz := ⟨⟨1, 3, bzz⟩, ⟨5, 7⟩, bzz⟩
+example : baz := { a := 1, n := 3, b := bzz, c := 5, d := 7, v := bzz}
+def fzz : foo Nat (vec Nat) := {a := 1, n := 3, b := bzz}
+
+example : foo Nat (vec Nat) := { fzz with a := 7 }
+example : baz := { fzz with c := 5, d := 7, v := bzz }
+
+example : bar := { c := 8, d := 9 }
+example : bar := { d := 9 }  -- uses the default value for c
+</code></pre>
+<p>.. _type_classes:</p>
+<h1><a class="header" href="#type-classes" id="type-classes">Type Classes</a></h1>
+<p>(Classes and instances. Anonymous instances. Local instances.)</p>
+<p>.. [Dybjer] Dybjer, Peter, <em>Inductive Families</em>. Formal Aspects of Computing 6, 1994, pages 440-465.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="expressions.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="organization.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="expressions.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="organization.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
